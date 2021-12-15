@@ -1,7 +1,14 @@
-import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/auth.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -24,9 +31,35 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: AuthGate(),
     );
   }
+}
+
+class AuthGate extends StatelessWidget {
+  const AuthGate({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          // User is not signed in - show a sign-in screen
+          if (!snapshot.hasData) {
+            return SignInScreen(
+              providerConfigs: [
+                EmailProviderConfiguration(),
+                GoogleProviderConfiguration(
+                  clientId: '468834642973-5ddqpnv0jpd6onea9pq3bm91roqc2o1t.apps.googleusercontent.com',
+                ),
+              ],
+            );
+          }
+
+          return MyHomePage(
+            title: "Ai mart",
+          ); // show your app’s home page after login
+        },
+      );
 }
 
 class MyHomePage extends StatefulWidget {
