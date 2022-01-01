@@ -37,7 +37,7 @@ class AuthView extends StatelessWidget {
                   alignment: Alignment.center,
                   height: (MediaQuery.of(context).size.height / 2) - 150,
                   child: Image.asset(
-                        "assets/images/appLogo.jpg",
+                        "assets/images/appLogo.png",
                     fit: BoxFit.cover,
                     color: Colors.white,
                   ),
