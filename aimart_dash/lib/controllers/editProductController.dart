@@ -13,17 +13,19 @@ class EditProductController extends GetxController {
   
 
   var productId = "".obs;
-  var title = TextEditingController().obs;
+  var name = TextEditingController().obs;
   var description = TextEditingController().obs;
-  var basicPrice = TextEditingController().obs;
-  var standardPrice = TextEditingController().obs;
-  var premiumPrice = TextEditingController().obs;
+  var price = TextEditingController().obs;
+  var discount = TextEditingController().obs;
+  var categoryId = "".obs;
+  var subCategory = "".obs;
+  var featured = false.obs;
 
   late firebase_storage.Reference ref;
 
   var productFormKey = GlobalKey<FormState>().obs;
 
-  Rx<List<PickedFile>> pickedImages = Rx<List<PickedFile>>([]);
+  Rx<List<PickedFile>> pickedImages = Rx<List<PickedFile>>([]); 
 
   var imageUrl = "".obs;
 
@@ -36,12 +38,15 @@ class EditProductController extends GetxController {
   void onInit()async {
     productId.value = Get.parameters['id']!;
     final Product? product = await FirebaseService.getProductById(productId.value);
-    title.value.text = product!.title;
+    name.value.text = product!.name;
     description.value.text = product.description;
-    basicPrice.value.text = product.price.basic.toString();
-    standardPrice.value.text = product.price.standard.toString();
-    premiumPrice.value.text = product.price.premium.toString();
+    price.value.text = product.price.toString();
+    categoryId.value= product.categoryId;
+    discount.value.text = product.discount.toString();
+    featured.value = product.featured;
+    subCategory.value= product.subCategory;
     imageUrl.value = product.imageUrl;
+    update();
     super.onInit();
   }
 
@@ -63,6 +68,17 @@ class EditProductController extends GetxController {
 
   removeImage(PickedFile file) {
     pickedImages.value.remove(file);
+    update();
+  }
+
+  setCategoryId(String catId) {
+    categoryId.value = catId;
+    subCategory.value = "";
+    update();
+  }
+
+   setFeatured(bool val){
+    featured.value = val;
     update();
   }
 
@@ -107,14 +123,15 @@ class EditProductController extends GetxController {
         } else {
           Product product = Product(
             id: productId.value,
-            title: title.value.text,
+            name: name.value.text,
             imageUrl: imageUrl.value,
-            price: Price(
-              basic: double.parse(basicPrice.value.text),
-              standard: double.parse(standardPrice.value.text),
-              premium: double.parse(premiumPrice.value.text),
-            ),
+            price: double.parse(price.value.text),
+            discount: double.parse(discount.value.text),
+            categoryId: categoryId.value,
+            subCategory: subCategory.value,
             description: description.value.text,
+            featured: featured.value,
+            updateDate: DateTime.now()
           );
 
           FirebaseService.updateProduct(product).then(
@@ -132,6 +149,7 @@ class EditProductController extends GetxController {
     }
     submitting.value = false;
     update();
+    Get.back();
   }
 
   deleteProduct(String id) {
@@ -140,12 +158,13 @@ class EditProductController extends GetxController {
   }
 
   void onClear() {
-    title.value.text = "";
+    name.value.text = "";
     description.value.text = "";
     imageUrl.value = "";
+    discount.value.text = "";
     pickedImages.value = [];
-    basicPrice.value.text = "";
-    standardPrice.value.text = "";
-    premiumPrice.value.text = "";
+    price.value.text = "";
+    categoryId.value = "";
+    subCategory.value = "";
   }
 }

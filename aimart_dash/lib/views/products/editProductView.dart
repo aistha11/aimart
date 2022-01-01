@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:aimart_dash/config/config.dart';
+import 'package:aimart_dash/constants/dependencies.dart';
 import 'package:aimart_dash/controllers/controllers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -63,21 +64,21 @@ class EditProductView extends GetView<EditProductController> {
                               TextFormField(
                                 validator: (val) {
                                   if (val!.isEmpty) {
-                                    return "*Title can't be empty.";
+                                    return "*Name can't be empty.";
                                   }
                                   return null;
                                 },
-                                controller: controller.title.value,
+                                controller: controller.name.value,
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderSide: BorderSide(),
                                   ),
-                                  labelText: "Title",
+                                  labelText: "Name",
                                 ),
                                 onFieldSubmitted: (val) {
-                                  controller.title.value.text = val;
+                                  controller.name.value.text = val;
                                 },
                               ),
                               SizedBox(
@@ -107,80 +108,146 @@ class EditProductView extends GetView<EditProductController> {
                               SizedBox(
                                 height: 10.0,
                               ),
-                              Text(
-                                "Enter price in USD",
-                                style: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w600),
+                              DropdownButtonFormField<String>(
+                                validator: (String? val) {
+                                  if (val == null) {
+                                    return "*Please select category";
+                                  }
+                                  return null;
+                                },
+                                value: controller.categoryId.value == ""
+                                    ? null
+                                    : controller.categoryId.value,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(5.0),
+                                    ),
+                                  ),
+                                ),
+                                onChanged: (val) {
+                                  controller.setCategoryId(val!);
+                                },
+                                hint: Text("Select Category"),
+                                items: categoryController.categoryList.map((e) {
+                                  return DropdownMenuItem(
+                                    child: Text(e.name),
+                                    value: e.id,
+                                  );
+                                }).toList(),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Obx(
+                                () => controller.categoryId.value != ""
+                                    ? DropdownButtonFormField<String>(
+                                        validator: (String? val) {
+                                          if (val == null) {
+                                            return "*Please select sub category";
+                                          }
+                                          return null;
+                                        },
+                                        value:
+                                            controller.subCategory.value == ""
+                                                ? null
+                                                : controller.subCategory.value,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(5.0),
+                                            ),
+                                          ),
+                                        ),
+                                        onChanged: (String? val) {
+                                          controller.subCategory.value = val!;
+                                        },
+                                        hint: Text("Select Sub Category"),
+                                        items: categoryController
+                                            .getSubCategory(
+                                                controller.categoryId.value)
+                                            .map((e) {
+                                          return DropdownMenuItem(
+                                            child: Text(e.name.toString()),
+                                            value: e.name.toString(),
+                                          );
+                                        }).toList(),
+                                      )
+                                    : Container(),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              TextFormField(
+                                validator: (val) {
+                                  if (val!.isEmpty) {
+                                    return "*Price can't be empty.";
+                                  }
+                                  // if (val.length != 10)
+                                  //   return "*Enter Correct Mobile Number";
+                                  return null;
+                                },
+                                controller: controller.price.value,
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(),
+                                    ),
+                                    labelText: "Price"),
+                                onFieldSubmitted: (val) {
+                                  controller.price.value.text = val;
+                                },
                               ),
                               SizedBox(
                                 height: 10.0,
                               ),
                               TextFormField(
-                                validator: (val) {
-                                  if (val!.isEmpty) {
-                                    return "*Basic Price can't be empty.";
-                                  }
-                                  return null;
-                                },
-                                controller: controller.basicPrice.value,
+                                controller: controller.discount.value,
                                 textInputAction: TextInputAction.next,
-                                keyboardType: TextInputType.numberWithOptions(
-                                    decimal: true),
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide(),
                                     ),
-                                    labelText: "Basic Price"),
+                                    labelText: "Discount"),
                                 onFieldSubmitted: (val) {
-                                  controller.basicPrice.value.text = val;
+                                  controller.discount.value.text = val;
                                 },
                               ),
                               SizedBox(
                                 height: 10.0,
                               ),
-                              TextFormField(
-                                validator: (val) {
-                                  if (val!.isEmpty) {
-                                    return "*Standard Price can't be empty.";
-                                  }
-                                  return null;
-                                },
-                                controller: controller.standardPrice.value,
-                                textInputAction: TextInputAction.next,
-                                keyboardType: TextInputType.numberWithOptions(
-                                    decimal: true),
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(),
-                                    ),
-                                    labelText: "Standard Price"),
-                                onFieldSubmitted: (val) {
-                                  controller.standardPrice.value.text = val;
-                                },
-                              ),
-                              SizedBox(
-                                height: 10.0,
-                              ),
-                              TextFormField(
-                                validator: (val) {
-                                  if (val!.isEmpty) {
-                                    return "*Premium Price can't be empty.";
-                                  }
-                                  return null;
-                                },
-                                controller: controller.premiumPrice.value,
-                                textInputAction: TextInputAction.next,
-                                keyboardType: TextInputType.numberWithOptions(
-                                    decimal: true),
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(),
-                                    ),
-                                    labelText: "Premium Price"),
-                                onFieldSubmitted: (val) {
-                                  controller.premiumPrice.value.text = val;
-                                },
-                              ),
+                              Row(
+                              children: [
+                                Checkbox(
+                                  value: controller.featured.value,
+                                  activeColor: Pallete.primaryCol,
+                                  onChanged: (val) {
+                                    controller.setFeatured(val!);
+                                  },
+                                ),
+                                Text(
+                                  "Do you want to featured this?   ",
+                                  style: TextStyle(
+                                      color: Pallete.inputFillColor,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                controller.featured.value
+                                    ? Text(
+                                        "✔",
+                                        style: TextStyle(
+                                            color: Colors.green,
+                                            fontSize: 20.0),
+                                      )
+                                    : Text("❌", style: TextStyle(fontSize: 8)),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                              
                               SizedBox(
                                 height: 10.0,
                               ),
@@ -225,7 +292,7 @@ class EditProductView extends GetView<EditProductController> {
                                 height: 10,
                               ),
                               ExistingProductImage(),
-                              SelectedProductImages(),
+                              EditSelectedProductImages(),
                               SizedBox(
                                 height: 20,
                               ),
@@ -295,8 +362,8 @@ class ExistingProductImage extends StatelessWidget {
   }
 }
 
-class SelectedProductImages extends StatelessWidget {
-  const SelectedProductImages({Key? key}) : super(key: key);
+class EditSelectedProductImages extends StatelessWidget {
+  const EditSelectedProductImages({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

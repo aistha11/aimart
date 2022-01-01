@@ -14,11 +14,14 @@ class ProductController extends GetxController {
 
   List<Product> get productList => _productList.value;
 
-  var title = TextEditingController().obs;
+  var name = TextEditingController().obs;
   var description = TextEditingController().obs;
-  var basicPrice = TextEditingController().obs;
-  var standardPrice = TextEditingController().obs;
-  var premiumPrice = TextEditingController().obs;
+  var price = TextEditingController().obs;
+  var discount = TextEditingController().obs;
+  var categoryId = "".obs;
+  var subCategory = "".obs;
+  var featured = false.obs;
+  
 
   late firebase_storage.Reference ref;
 
@@ -38,6 +41,17 @@ class ProductController extends GetxController {
   void onInit() {
     _productList.bindStream(FirebaseService.getProducts());
     super.onInit();
+  }
+
+  setCategoryId(String catId) {
+    categoryId.value = catId;
+    subCategory.value = "";
+    update();
+  }
+
+  setFeatured(bool val){
+    featured.value = val;
+    update();
   }
 
   chooseImage() async {
@@ -92,26 +106,19 @@ class ProductController extends GetxController {
           await uploadFile();
           update();
           Product product = Product(
-            title: title.value.text,
+            name: name.value.text,
             imageUrl: imageUrl.value,
-            price: Price(
-              basic: double.parse(basicPrice.value.text),
-              standard: double.parse(standardPrice.value.text),
-              premium: double.parse(premiumPrice.value.text),
-            ),
+            price: double.parse(price.value.text),
+            categoryId: categoryId.value,
+            discount: double.parse(discount.value.text),
+            featured: featured.value,
+            subCategory: subCategory.value,
             description: description.value.text,
+            updateDate: DateTime.now()
           );
-          // productItemDb.createItem(product).then(
-          //   (value) {
-          //     Get.snackbar(
-          //       "Successfull!!",
-          //       "Your Product is Created",
-          //       snackPosition: SnackPosition.BOTTOM,
-          //     );
-          //   },
-          // );
+          
 
-          FirebaseService.createProduct(product).then(
+          await FirebaseService.createProduct(product).then(
             (value) {
               Get.snackbar(
                 "Successfull!!",
@@ -126,6 +133,7 @@ class ProductController extends GetxController {
     }
     submitting.value = false;
     update();
+    Get.back();
   }
 
   deleteProduct(String id) {
@@ -134,13 +142,12 @@ class ProductController extends GetxController {
   }
 
   void onClear() {
-    title.value.text = "";
+    name.value.text = "";
     description.value.text = "";
+    price.value.text = "";
+    discount.value.text = "";
     imageUrl.value = "";
     pickedImages.value = [];
     progressVal.value = 0.0;
-    basicPrice.value.text = "";
-    standardPrice.value.text = "";
-    premiumPrice.value.text = "";
   }
 }

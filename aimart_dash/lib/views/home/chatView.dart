@@ -1,6 +1,7 @@
 import 'package:aimart_dash/bindings/bindings.dart';
 import 'package:aimart_dash/controllers/controllers.dart';
 import 'package:aimart_dash/models/models.dart';
+import 'package:aimart_dash/services/services.dart';
 import 'package:aimart_dash/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -14,39 +15,46 @@ class ChatView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetX<ChatController>(builder: (controller) {
+        if (controller.chatUserList.isEmpty) {
+          return Center(
+            child: Text("No Chats"),
+          );
+        }
         return ListView.builder(
             itemCount: controller.chatUserList.length,
             itemBuilder: (_, i) {
               ChatUser chatUser = controller.chatUserList[i];
               return Slidable(
-                // actionPane: SlidableStrechActionPane(),
-                // secondaryActions: [
-                //   IconSlideAction(
-                //     caption: "Delete",
-                //     icon: Icons.delete,
-                //     color: Colors.red,
-                //     onTap: () async {
-                //       Get.defaultDialog(
-                //         title: "Do you want to delete?",
-                //         backgroundColor: Colors.red,
-                //         middleText: "This will delete all of the chats and the user too.",
-                //         confirm: IconButton(
-                //           onPressed: () async {
-                //             await FirebaseApi.deleteChatUser(chatUser);
-                //             Get.back();
-                //           },
-                //           icon: Icon(Icons.done),
-                //         ),
-                //         cancel: IconButton(
-                //           onPressed: () {
-                //             Get.back();
-                //           },
-                //           icon: Icon(Icons.cancel),
-                //         ),
-                //       );
-                //     },
-                //   ),
-                // ],
+                endActionPane: ActionPane(
+                  motion: ScrollMotion(),
+                  children: [
+                  SlidableAction(
+                    label: "Delete",
+                    icon: Icons.delete,
+                    backgroundColor: Colors.red,
+                    onPressed: (_) async {
+                      Get.defaultDialog(
+                        title: "Do you want to delete?",
+                        backgroundColor: Colors.red,
+                        middleText: "This will delete all of the chats and the user too.",
+                        confirm: IconButton(
+                          onPressed: () async {
+                            await FirebaseService.deleteChatUser(chatUser);
+                            Get.back();
+                          },
+                          icon: Icon(Icons.done),
+                        ),
+                        cancel: IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(Icons.cancel),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+                ),
                 child: ListTile(
                   key: Key(chatUser.id!),
                   onTap: () {

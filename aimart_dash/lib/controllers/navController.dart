@@ -6,6 +6,7 @@ class NavController extends GetxController {
   var currentIndex = 0.obs;
   List<Widget> pages = [
     ProductsView(),
+    CategoriesView(),
     OrdersView(),
     ContactsView(),
     ChatView(),

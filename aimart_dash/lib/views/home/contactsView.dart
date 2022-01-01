@@ -13,47 +13,53 @@ class ContactsView extends StatelessWidget {
     return Scaffold(
       body: GetX<ContactController>(
         builder: (controller) {
+          if(controller.contactsList.isEmpty){
+            return Center(child: Text("No Contacts"),);
+          }
           return ListView.builder(
             itemCount: controller.contactsList.length,
             itemBuilder: (_, i) {
               Contact contact = controller.contactsList[i];
               return Slidable(
-                // actionPane: SlidableStrechActionPane(),
-                // actions: [
-                //   IconSlideAction(
-                //     icon: Icons.delete,
-                //     color: Colors.red,
-                //     onTap: () async {
-                //       await controller.deleteContact(contact);
-                //     },
-                //   ),
-                // ],
-                // secondaryActions: [
-                //   IconSlideAction(
-                //     caption: "Call",
-                //     icon: Icons.call,
-                //     color: Colors.blue,
-                //     onTap: () {
-                //       final Uri phoneLaunchUri = Uri(
-                //         scheme: 'tel',
-                //         path: "${contact.number}",
-                //       );
-                //       controller.callUser(phoneLaunchUri.toString());
-                //     },
-                //   ),
-                //   IconSlideAction(
-                //     caption: "Email",
-                //     icon: Icons.email,
-                //     color: Colors.green,
-                //     onTap: () {
-                //       final Uri emailLaunchUri = Uri(
-                //         scheme: 'mailto',
-                //         path: "${contact.email}",
-                //       );
-                //       controller.mailUser(emailLaunchUri.toString());
-                //     },
-                //   ),
-                // ],
+                startActionPane: ActionPane(
+                  motion: ScrollMotion(),
+                  children: [
+                    SlidableAction(
+                    icon: Icons.delete,
+                    backgroundColor: Colors.red,
+                    onPressed: (_) async {
+                      await controller.deleteContact(contact);
+                    },
+                  ),
+                  ],
+                ),
+              
+                endActionPane: ActionPane(motion: ScrollMotion(), children: [
+                  SlidableAction(
+                    label: "Call",
+                    icon: Icons.call,
+                    backgroundColor: Colors.blue,
+                    onPressed: (_) {
+                      final Uri phoneLaunchUri = Uri(
+                        scheme: 'tel',
+                        path: "${contact.number}",
+                      );
+                      controller.callUser(phoneLaunchUri.toString());
+                    },
+                  ),
+                  SlidableAction(
+                    label: "Email",
+                    icon: Icons.email,
+                    backgroundColor: Colors.green,
+                    onPressed: (_) {
+                      final Uri emailLaunchUri = Uri(
+                        scheme: 'mailto',
+                        path: contact.email,
+                      );
+                      controller.mailUser(emailLaunchUri.toString());
+                    },
+                  ),
+                ]),
                 child: ListTile(
                   leading: CircleAvatar(
                     child: Text(Utils.getInitials(contact.name)),

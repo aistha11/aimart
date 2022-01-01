@@ -45,25 +45,25 @@ class ProductListTile extends StatelessWidget {
     return GetBuilder<ProductController>(builder: (controller) {
       return Slidable(
         key: key,
-        // actionPane: SlidableStrechActionPane(),
-        // endActionPane: ActionPane(children: [
-        //   IconSlideAction(
-        //     caption: 'Edit',
-        //     color: Colors.blue,
-        //     icon: Icons.edit,
-        //     onTap: () {
-        //       Get.toNamed("/editProduct/${product.id}");
-        //     },
-        //   ),
-        //   IconSlideAction(
-        //     caption: 'Delete',
-        //     color: Colors.red,
-        //     icon: Icons.delete,
-        //     onTap: () {
-        //       Get.find<ProductController>().deleteProduct(product.id!);
-        //     },
-        //   ),
-        // ],motion: ,),
+        
+        endActionPane: ActionPane(children: [
+          SlidableAction(
+            label: 'Edit',
+            backgroundColor: Colors.blue,
+            icon: Icons.edit,
+            onPressed: (_) {
+              Get.toNamed("/editProduct/${product.id}");
+            },
+          ),
+          SlidableAction(
+            label: 'Delete',
+            backgroundColor: Colors.red,
+            icon: Icons.delete,
+            onPressed: (_) {
+              Get.find<ProductController>().deleteProduct(product.id!);
+            },
+          ),
+        ],motion: ScrollMotion(),),
         child: ListTile(
           isThreeLine: true,
           leading: CachedNetworkImage(
@@ -73,7 +73,7 @@ class ProductListTile extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           title: Text(
-            product.title,
+            product.name,
             maxLines: 2,
           ),
           subtitle: Text(product.description),

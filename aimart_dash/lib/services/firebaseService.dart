@@ -41,6 +41,13 @@ class FirebaseService  {
           fromFirestore: (doc, _) => Product.fromMap(doc.id, doc.data()!),
           toFirestore: (product, _) => product.toMap());
 
+  // Reference to category collection
+  static final categoryColsRefs = _db
+      .collection(CATEGORYCOLLECTION)
+      .withConverter<Category>(
+          fromFirestore: (doc, _) => Category.fromMap(doc.id, doc.data()!),
+          toFirestore: (category, _) => category.toMap());
+
   // All functionality related to users
 
   /// Get all Users
@@ -49,6 +56,40 @@ class FirebaseService  {
     return refUsers.map((list) {
       return list.docs.map((doc) => doc.data()).toList();
     });
+  }
+
+  // All Functionality related to category
+
+  /// Create a category item
+  static Future<void> createCategory(Category category) async {
+    await categoryColsRefs.add(category);
+  }
+
+  /// Get all categories
+  static Stream<List<Category>> getCategories() {
+    final refCategories = categoryColsRefs.snapshots();
+    return refCategories.map((list) {
+      return list.docs.map((doc) => doc.data()).toList();
+    });
+  }
+
+  /// Get single category by id
+  static Future<Category?> getCategoryById(String id) async {
+    DocumentSnapshot<Category> snap = await categoryColsRefs.doc(id).get();
+    return snap.data();
+  }
+
+  // U - update category
+  static Future<void> updateCategory(Category category) {
+    return categoryColsRefs
+        .doc(category.id)
+        .set(category, SetOptions(merge: true));
+  }
+
+  /// Delete a category
+  /// Takes an id of a category
+  static Future<void> deleteCategory(String id) {
+    return categoryColsRefs.doc(id).delete();
   }
 
   // All Functionality related to products

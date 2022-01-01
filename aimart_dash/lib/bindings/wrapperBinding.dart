@@ -1,3 +1,4 @@
+
 import 'package:aimart_dash/controllers/controllers.dart';
 import 'package:get/get.dart';
 
@@ -6,9 +7,10 @@ class WrapperBinding implements Bindings {
   void dependencies() {
     Get.put<NavController>(NavController());
   Get.put<ProductController>(ProductController());
+  Get.put<CategoryController>(CategoryController());
   Get.put<ContactController>(ContactController());
   Get.put<OrderController>(OrderController());
   Get.put<ChatController>(ChatController());
-    
+    Get.put<SettingsController>(SettingsController());
   }
 }
