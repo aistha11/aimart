@@ -73,7 +73,7 @@ class ChatMessageView extends GetView<ChatMessageController> {
                 itemCount: controller.chatMessageList.length,
                 itemBuilder: (BuildContext context, int index) {
                   ChatMessage chatMessage = controller.chatMessageList[index];
-                  if (chatMessage.senderId == "marketingpro.london") {
+                  if (chatMessage.senderId == "aimart11") {
                     return _buildMessageRow(chatMessage, current: true);
                   }
                   return _buildMessageRow(chatMessage, current: false);
