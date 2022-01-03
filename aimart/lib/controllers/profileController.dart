@@ -7,11 +7,11 @@ import 'package:get/get.dart';
 class ProfileController extends GetxController {
   Rx<DbUser> dbUser = Rx<DbUser>(
     DbUser(
-      name: "No Name",
-      username: "nomail",
+      name: "Ai Mart",
+      username: "aimart11",
       number: null,
       profilePhoto: "",
-      email: "nomail@gmail.com",
+      email: "aimart11@gmail.com",
     ),
   );
 

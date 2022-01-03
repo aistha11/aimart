@@ -6,7 +6,9 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 class MarkdownView extends StatelessWidget {
   final String path;
 
-  const MarkdownView({required this.path});
+  const MarkdownView({Key? key, required this.path}) : super(key: key);
+
+ 
 
   @override
   Widget build(BuildContext context) {

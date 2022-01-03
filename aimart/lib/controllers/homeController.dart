@@ -13,9 +13,5 @@ class HomeController extends GetxController {
     scaffoldKey.currentState!.openEndDrawer();
   }
 
-  @override
-  void onInit() {
-   
-    super.onInit();
-  }
+ 
 }

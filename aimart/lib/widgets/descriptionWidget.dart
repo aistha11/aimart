@@ -9,7 +9,7 @@ class DescriptionWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(left: 15, right: 15),
       child: Text(
-          "$description",
+          description,
           style: TextStyle(fontSize: 18),
           textAlign: textAlign),
     );

@@ -49,7 +49,7 @@ class ChatMessageController extends GetxController {
       }
       ChatMessage chatMessage = ChatMessage(
         message: message.value.text,
-        senderId: "marketingpro.london",
+        senderId: "aimart11",
         receiverId: username.value,
         updateDate: DateTime.now(),
       );

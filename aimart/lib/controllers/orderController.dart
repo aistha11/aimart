@@ -19,10 +19,7 @@ class OrderController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void dispose() { 
-    super.dispose();
-  }
+  
 
   Future<void> submitOrder(Order order) async {
     await FirebaseService.createOrder(order);

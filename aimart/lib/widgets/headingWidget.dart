@@ -9,7 +9,7 @@ class HeadingWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(top: 30, bottom: 30),
       child: Text(
-        "$title",
+        title,
         style: TextStyle(fontSize: 24),
         textAlign: textAlign,
       ),

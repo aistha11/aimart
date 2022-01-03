@@ -9,7 +9,7 @@ class FirebaseService {
   static final usersColsRefs = _db
       .collection(USERSCOLLECTION)
       .withConverter<DbUser>(
-          fromFirestore: (doc, _) => DbUser.fromMap(doc.data()!),
+          fromFirestore: (doc, _) => DbUser.fromMap(doc.id,doc.data()!),
           toFirestore: (user, _) => user.toMap());
   
   // Reference to products collection

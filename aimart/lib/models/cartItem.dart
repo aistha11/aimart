@@ -21,9 +21,8 @@ class CartItem extends DatabaseItem {
     required this.plan,
   }) : super(id);
 
-  CartItem.fromMap(String id, Map<String, dynamic> data)
-      : id = id,
-        name = data['name'],
+  CartItem.fromMap(this.id, Map<String, dynamic> data)
+      : name = data['name'],
         userId = data['userId'],
         imageUrl = data['imageUrl'],
         quantity = data['quantity'],
