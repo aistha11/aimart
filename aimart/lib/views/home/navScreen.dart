@@ -23,7 +23,7 @@ class NavView extends StatelessWidget {
           selectedItemColor: Pallete.primaryCol,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.design_services), label: "Services"),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
             BottomNavigationBarItem(
                 icon: GetX<CartController>(builder: (controller){
                   return Badge(
@@ -35,6 +35,8 @@ class NavView extends StatelessWidget {
                 label: "Cart"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.list_alt), label: "Orders"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person), label: "Profile"),
           ],
           onTap: (index) {
             controller.onPageChange(index);

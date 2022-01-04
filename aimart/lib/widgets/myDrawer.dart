@@ -3,7 +3,9 @@ import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/models/models.dart';
 import 'package:aimart/utilities/utilities.dart';
 import 'package:aimart/views/views.dart';
+import 'package:aimart/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -27,20 +29,77 @@ class MyDrawer extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                ListTile(
-                  title: Text("Profile"),
-                  leading: Icon(Icons.person),
-                  onTap: () {
-                    Get.to(() => ProfileView());
-                  },
-                ),
-                ListTile(
-                  title: Text("Sign Out"),
-                  leading: Icon(Icons.logout),
-                  onTap: () {
-                    Get.find<FirebaseAuthController>().signOut();
-                  },
-                ),
+                // ListTile(
+                //   title: Text("Profile"),
+                //   leading: Icon(Icons.person),
+                //   onTap: () {
+                //     Get.to(() => ProfileView());
+                //   },
+                // ),
+                SizedBox(
+                    height: 5,
+                  ),
+                  // DrawerListTile(
+                  //   svgImage: "assets/images/privacy-policy.svg",
+                  //   title: "Privacy Policy",
+                  //   route: "/privacy-policy",
+                  // ),
+                  // SizedBox(
+                  //   height: 5,
+                  // ),
+                  // DrawerListTile(
+                  //   svgImage: "assets/images/refund-policy.svg",
+                  //   title: "Refund Policy",
+                  //   route: "/refund-policy",
+                  // ),
+                  // SizedBox(
+                  //   height: 5,
+                  // ),
+                  // DrawerListTile(
+                  //   svgImage: "assets/images/terms-of-service.svg",
+                  //   title: "Terms of Service",
+                  //   route: "/terms-of-service",
+                  // ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  DrawerListTile(
+                    svgImage: "assets/images/contact-us.svg",
+                    title: "Contact Us",
+                    route: "/contact",
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  ListTile(
+                    leading: CircleAvatar(
+                      radius: 18,
+                      child: SvgPicture.asset(
+                        "assets/images/sign-out.svg",
+                        alignment: Alignment.center,
+                      ),
+                      backgroundColor: Colors.white,
+                    ),
+                    title: Text(
+                      'SignOut',
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                    ),
+                    onTap: () {
+                      Get.find<FirebaseAuthController>().signOut();
+                    },
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      "assets/images/appLogo.png",
+                      width: 200,
+                      height: 140,
+                    ),
+                  ),
               ],
             ),
           ],
@@ -100,6 +159,7 @@ class DrawerProfile extends StatelessWidget {
                   child: Text(
                     user.name,
                     maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style:
                         TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                   ),

@@ -21,6 +21,9 @@ class ContactController extends GetxController {
     
     name.value.text = userController.dbUser.value.name;
     email.value.text = userController.dbUser.value.email;
+    phone.value.text = userController.dbUser.value.number == null ? "" :userController.dbUser.value.number.toString();
+
+    update();
     
     super.onInit();
   }

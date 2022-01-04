@@ -1,4 +1,5 @@
 import 'package:aimart/config/config.dart';
+import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/models/models.dart';
 import 'package:aimart/services/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -178,6 +179,9 @@ class FirebaseAuthController extends GetxController {
       googleSignIn.signOut();
       _status.value = Status.UNAUTHENTICATED;
       update();
+      Get.delete<ProfileController>(force: true);
+      Get.delete<CartController>(force: true);
+      Get.delete<OrderController>(force: true);
       return Future.delayed(Duration.zero);
     } catch (e) {
       print(e.toString());

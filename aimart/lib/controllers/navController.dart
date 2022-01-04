@@ -7,9 +7,10 @@ class NavController extends GetxController {
   var currentIndex = 0.obs;
   List<Widget> pages = [
     HomeView(),
-    HomeView(),
+    SearchView(),
     CartView(),
     OrderView(),
+    ProfileView(),
   ];
   void onPageChange(int index) {
     currentIndex.value = index;

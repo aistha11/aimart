@@ -7,3 +7,6 @@ export 'homeController.dart';
 export 'orderController.dart';
 export 'navController.dart';
 export 'productController.dart';
+export 'categoryController.dart';
+export 'categorySearchController.dart';
+export 'searchController.dart';

@@ -37,17 +37,17 @@ class CartController extends GetxController {
     return false;
   }
 
-  Future<void> addToCart(Product product, double price,
-      [int quantity = 1, String plan = "Basic"]) async {
+  Future<void> addToCart(Product product, 
+      [int quantity = 1, ]) async {
     if (!isInCart(product.id!)) {
       CartItem cartItem = CartItem(
           name: product.name,
           imageUrl: product.imageUrl,
-          price: price,
+          price: product.price,
           productId: product.id!,
           quantity: quantity,
           userId: username.value,
-          plan: plan);
+         );
       await FirebaseService.createCartItem(username.value, cartItem);
       // Utils.showSnackBar("Added to cart", "");
     } else {
@@ -75,7 +75,7 @@ class CartController extends GetxController {
       price: cartItem.price,
       quantity: cartItem.quantity + 1,
       productId: cartItem.productId,
-      plan: cartItem.plan,
+      
     );
     await FirebaseService.updateCartItem(username.value, upCartItem);
   }
@@ -90,7 +90,7 @@ class CartController extends GetxController {
         price: cartItem.price,
         quantity: cartItem.quantity - 1,
         productId: cartItem.productId,
-        plan: cartItem.plan,
+        
       );
       await FirebaseService.updateCartItem(username.value, upCartItem);
     } else {

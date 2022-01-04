@@ -10,3 +10,6 @@ export 'checkout/checkoutView.dart';
 export 'privacyPolicy/privacyPolicy.dart';
 export 'termsOfService/termsOfService.dart';
 export 'refundPolicy/refundPolicy.dart';
+export 'search/searchView.dart';
+export 'singleCategory.dart';
+export 'singleProduct.dart';

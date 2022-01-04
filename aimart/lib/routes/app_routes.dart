@@ -2,7 +2,9 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   static const WRAPPER = '/';
-  static const SERVICES = '/services';
+  static const SEARCH = '/search';
+  static const SINGLECATEGORY = '/category/:catId';
+  static const SINGLEPRODUCT = '/product/:id';
   static const CART = '/cart';
   static const CHECKOUT = '/checkout';
   static const PRIVACYPOLICY = '/privacy-policy';

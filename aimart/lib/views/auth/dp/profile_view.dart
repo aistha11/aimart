@@ -1,6 +1,7 @@
 
 import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/models/models.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -29,8 +30,8 @@ class ProfileView extends StatelessWidget {
               SizedBox(
                 height: 250,
                 width: double.infinity,
-                child: Image.network(
-                  "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80",
+                child: CachedNetworkImage(
+                  imageUrl: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -105,7 +106,7 @@ class ProfileView extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
                               image: DecorationImage(
-                                  image: NetworkImage(dpUser.profilePhoto),
+                                  image: CachedNetworkImageProvider(dpUser.profilePhoto),
                                   fit: BoxFit.cover)),
                           margin: EdgeInsets.only(left: 16.0),
                         ),

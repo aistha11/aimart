@@ -8,3 +8,7 @@ export 'headingWidget.dart';
 export 'descriptionWidget.dart';
 export 'cartItemTile.dart';
 export 'checkoutSection.dart';
+export 'singleCatCard.dart';
+export 'productCard.dart';
+export 'categoryWidget.dart';
+export 'caroslider.dart';

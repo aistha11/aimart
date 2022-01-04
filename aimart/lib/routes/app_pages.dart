@@ -14,12 +14,16 @@ class AppPages {
       page: () => Wrapper(),
       binding: WrapperBinding(),
     ),
+
+    GetPage(name: Routes.SEARCH, page:()=> SearchView()),
     GetPage(name: Routes.CART, page:()=> CartView()),
     GetPage(name: Routes.CHECKOUT, page:()=> CheckoutView()),
     GetPage(name: Routes.PRIVACYPOLICY, page:()=> PrivacyPolicy()),
     GetPage(name: Routes.REFUNDPOLICY, page:()=> RefundPolicy()),
     GetPage(name: Routes.TERMSOFSERVICE, page:()=> TermsOfService()),
     GetPage(name: Routes.CONTACTUS, page:()=> ContactView(), binding: ContactBinding()),
+    GetPage(name: Routes.SINGLECATEGORY, page:()=> SingleCategory(), binding: CategorySearchBinding()),
+    GetPage(name: Routes.SINGLEPRODUCT, page:()=> SingleProduct()),
   ];
 }
 

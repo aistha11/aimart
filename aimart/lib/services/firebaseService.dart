@@ -11,6 +11,13 @@ class FirebaseService {
       .withConverter<DbUser>(
           fromFirestore: (doc, _) => DbUser.fromMap(doc.id,doc.data()!),
           toFirestore: (user, _) => user.toMap());
+
+  // Reference to category collection
+  static final categoryColsRefs = _db
+      .collection(CATEGORYCOLLECTION)
+      .withConverter<Category>(
+          fromFirestore: (doc, _) => Category.fromMap(doc.id, doc.data()!),
+          toFirestore: (category, _) => category.toMap());
   
   // Reference to products collection
   static final productColsRefs = _db
@@ -76,6 +83,23 @@ class FirebaseService {
     return await usersColsRefs.doc(user.username).set(user, SetOptions(merge: true));
   }
 
+  // All Functionality related to categories
+
+
+  /// Get all categories
+  static Stream<List<Category>> getCategories() {
+    final refCategories = categoryColsRefs.snapshots();
+    return refCategories.map((list) {
+      return list.docs.map((doc) => doc.data()).toList();
+    });
+  }
+
+  /// Get single category by id
+  static Future<Category?> getCategoryById(String id) async {
+    DocumentSnapshot<Category> snap = await categoryColsRefs.doc(id).get();
+    return snap.data();
+  }
+
   // All Functionality related to products
 
   /// Create a product item
@@ -86,6 +110,21 @@ class FirebaseService {
   /// Get all products
   static Stream<List<Product>> getProducts() {
     final refProducts = productColsRefs.snapshots();
+    return refProducts.map((list) {
+      return list.docs.map((doc) => doc.data()).toList();
+    });
+  }
+
+  /// Get featured products
+  static Stream<List<Product>> getFeaturedProducts(int limit) {
+    final refProducts = productColsRefs.where("featured", isEqualTo: true).limit(10).snapshots();
+    return refProducts.map((list) {
+      return list.docs.map((doc) => doc.data()).toList();
+    });
+  }
+  /// Get featured products
+  static Stream<List<Product>> getLatestProducts(int limit) {
+    final refProducts = productColsRefs.orderBy("updateDate", descending: true).limit(10).snapshots();
     return refProducts.map((list) {
       return list.docs.map((doc) => doc.data()).toList();
     });

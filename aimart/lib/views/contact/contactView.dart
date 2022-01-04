@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ContactView extends GetView<ContactController> {
-  const ContactView({Key? key}) : super(key: key);
+   const ContactView({Key? key}) : super(key: key);
+
+ 
 
   @override
   Widget build(BuildContext context) {

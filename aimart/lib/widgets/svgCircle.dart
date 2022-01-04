@@ -13,6 +13,7 @@ class SVGCircle extends StatelessWidget {
       child: SvgPicture.asset(
         svgImage,
       ),
+      backgroundColor: Colors.white,
     );
   }
 }

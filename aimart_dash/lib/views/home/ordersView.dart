@@ -54,52 +54,57 @@ class OrderListTile extends StatelessWidget {
       builder: (controller) {
         return Slidable(
           key: key,
-          // actionPane: SlidableStrechActionPane(),
-          // secondaryActions: [
-          //   IconSlideAction(
-          //     caption: 'Processing',
-          //     color: Pallete.getOrderColor("Processing"),
-          //     icon: Pallete.getOrderIcon("Processing"),
-          //     onTap: () async{
-          //       Order upOrder = getUpdatedOrder("Processing");
-          //       await Get.find<OrderController>().changeOrderStatus(upOrder);
-          //     },
-          //   ),
-          //   IconSlideAction(
-          //     caption: 'Cancel',
-          //     color: Pallete.getOrderColor("Cancelled"),
-          //     icon: Pallete.getOrderIcon("Cancelled"),
-          //     onTap: () async {
-          //        Order upOrder = getUpdatedOrder("Cancelled");
-          //       await Get.find<OrderController>().changeOrderStatus(upOrder);
-          //     },
-          //   ),
-          // ],
-          // actions: [
-          //   IconSlideAction(
-          //     caption: 'Completed',
-          //     color: Pallete.getOrderColor("Completed"),
-          //     icon: Pallete.getOrderIcon("Completed"),
-          //     onTap: ()  async {
-          //       Order upOrder = getUpdatedOrder("Completed");
-          //       await Get.find<OrderController>().changeOrderStatus(upOrder);
-          //     },
-          //   ),
-          //   IconSlideAction(
-          //     caption: 'Delete',
-          //     color: Colors.black,
-          //     icon: Icons.delete,
-          //     onTap: () async {
-          //       if (order.orderState == "Completed" ||
-          //           order.orderState == "Cancelled") {
-          //         await Get.find<OrderController>().deleteOrder(order);
-          //       } else {
-          //         Utils.showSnackBar("Sorry",
-          //             "Only completed or cancelled order can be deleted");
-          //       }
-          //     },
-          //   ),
-          // ],
+          endActionPane: ActionPane(
+            motion: ScrollMotion(),
+            children: [
+              SlidableAction(
+                label: 'Processing',
+                backgroundColor: Pallete.getOrderColor("Processing"),
+                icon: Pallete.getOrderIcon("Processing"),
+                onPressed: (_) async {
+                  Order upOrder = getUpdatedOrder("Processing");
+                  await Get.find<OrderController>().changeOrderStatus(upOrder);
+                },
+              ),
+              SlidableAction(
+                label: 'Cancel',
+                backgroundColor: Pallete.getOrderColor("Cancelled"),
+                icon: Pallete.getOrderIcon("Cancelled"),
+                onPressed: (_) async {
+                  Order upOrder = getUpdatedOrder("Cancelled");
+                  await Get.find<OrderController>().changeOrderStatus(upOrder);
+                },
+              ),
+            ],
+          ),
+          startActionPane: ActionPane(
+            motion: ScrollMotion(),
+            children: [
+            SlidableAction(
+              label: 'Completed',
+              backgroundColor: Pallete.getOrderColor("Completed"),
+              icon: Pallete.getOrderIcon("Completed"),
+              onPressed: (_) async {
+                Order upOrder = getUpdatedOrder("Completed");
+                await Get.find<OrderController>().changeOrderStatus(upOrder);
+              },
+            ),
+            SlidableAction(
+              label: 'Delete',
+              backgroundColor: Colors.black,
+              icon: Icons.delete,
+              onPressed: (_) async {
+                if (order.orderState == "Completed" ||
+                    order.orderState == "Cancelled") {
+                  await Get.find<OrderController>().deleteOrder(order);
+                } else {
+                  Utils.showSnackBar("Sorry",
+                      "Only completed or cancelled order can be deleted");
+                }
+              },
+            ),
+          ],
+          ),
           child: ListTile(
             onTap: () {
               Get.defaultDialog(

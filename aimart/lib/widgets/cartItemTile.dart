@@ -82,7 +82,7 @@ class CartItemTile extends StatelessWidget {
                           width: 5,
                         ),
                          Text(
-                            cartItem.price.toStringAsFixed(2),
+                            "Rs. ${cartItem.price * cartItem.quantity}",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w300,
@@ -93,10 +93,10 @@ class CartItemTile extends StatelessWidget {
                     ),
                     Row(
                       children: <Widget>[
-                        Text(
-                          cartItem.plan,
-                          style: TextStyle(color: Colors.orange),
-                        ),
+                        // Text(
+                        //   cartItem.plan,
+                        //   style: TextStyle(color: Colors.orange),
+                        // ),
                         Spacer(),
                         Row(
                           children: <Widget>[

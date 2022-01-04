@@ -13,7 +13,7 @@ class PrivacyPolicy extends StatelessWidget {
         centerTitle: true,
       ),
       body: MarkdownView(
-        path: "assets/markDown/privacy-policy.md",
+        path: "markDown/privacy-policy.md",
       ),
     );
   }
