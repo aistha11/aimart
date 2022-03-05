@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/models/models.dart';
 import 'package:aimart/services/services.dart';
@@ -18,7 +20,7 @@ class ProfileController extends GetxController {
   getDbUser(String username) async {
     dbUser.bindStream(FirebaseService.streamDbUserById(username));
     // dbUser.value = await FirebaseService.getDbUserById(username);
-    print("DbUser: ${dbUser.value.name}");
+    log("DbUser: ${dbUser.value.name}");
     update();
   }
 

@@ -1,5 +1,6 @@
 import 'package:aimart/config/config.dart';
 import 'package:aimart/controllers/controllers.dart';
+import 'package:aimart/widgets/widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,7 +9,6 @@ import 'package:get/get.dart';
 import 'auth_controller.dart';
 import 'forgotPassword_view.dart';
 import 'widgets/authButton.dart';
-import 'widgets/authHeader.dart';
 import 'widgets/authPasswordFormField.dart';
 import 'widgets/authSubmitButton.dart';
 import 'widgets/authTextFormField.dart';
@@ -27,7 +27,7 @@ class SignInView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               const SizedBox(height: 100.0),
-              AuthHeader(heading: "Sign In"),
+              AppHeader(heading: "Sign In"),
               const SizedBox(height: 30.0),
               AuthTextFormField(
                 controller: controller.email,

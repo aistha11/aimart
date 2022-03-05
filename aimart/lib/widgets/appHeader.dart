@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AuthHeader extends StatelessWidget {
-  const AuthHeader({Key? key, required this.heading}) : super(key: key);
+class AppHeader extends StatelessWidget {
+  const AppHeader({Key? key, required this.heading}) : super(key: key);
   final String heading;
   @override
   Widget build(BuildContext context) {

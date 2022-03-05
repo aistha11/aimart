@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aimart/config/config.dart';
 import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/models/models.dart';
@@ -21,9 +23,9 @@ class SearchView extends StatelessWidget {
                     ? true
                     : false;
             var matchedCatId = product.categoryId == catId ? true : false;
-            print(
+            log(
                 "$matchedName = ${product.name.toLowerCase()} == ${query.toLowerCase()}");
-            print("$matchedCatId = ${product.categoryId} == $catId");
+            log("$matchedCatId = ${product.categoryId} == $catId");
             if (query.isEmpty && catId.isEmpty) {
               return true;
             } else if (query.isEmpty && catId.isNotEmpty) {

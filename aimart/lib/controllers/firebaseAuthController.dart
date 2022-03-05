@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aimart/config/config.dart';
 import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/models/models.dart';
@@ -24,14 +26,14 @@ class FirebaseAuthController extends GetxController {
   void onInit() {
     _firebaseUser?.bindStream(_auth.authStateChanges());
 
-    print(" Auth Change :   ${_auth.currentUser}");
+    log(" Auth Change :   ${_auth.currentUser}");
 
     if (_auth.currentUser == null) {
-      print("User is not logged in");
+      log("User is not logged in");
       _status.value = Status.UNAUTHENTICATED;
       update();
     } else {
-      print("User is logged in");
+      log("User is logged in");
       _status.value = Status.AUTHENTICATED;
       update();
     }
@@ -44,7 +46,7 @@ class FirebaseAuthController extends GetxController {
       _status.value = Status.AUTHENTICATING;
       update();
       String username = email.split('@')[0];
-      print(
+      log(
           "Sign Up with:{username:$username,name:$name,email:$email,password:$password}");
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
@@ -76,12 +78,12 @@ class FirebaseAuthController extends GetxController {
     try {
       _status.value = Status.AUTHENTICATING;
       update();
-      print("Sign In with:{email:$email,password:$password}");
+      log("Sign In with:{email:$email,password:$password}");
       await _auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then(
         (UserCredential uCreds) {
-          print(uCreds);
+          log(uCreds.toString());
           _status.value = Status.AUTHENTICATED;
           update();
         },
@@ -163,15 +165,11 @@ class FirebaseAuthController extends GetxController {
       _status.value = Status.UNAUTHENTICATED;
       update();
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
       _status.value = Status.UNAUTHENTICATED;
       update();
     }
   }
-
-  
-
-  
 
   Future<void> signOut() async {
     try {
@@ -184,7 +182,7 @@ class FirebaseAuthController extends GetxController {
       Get.delete<OrderController>(force: true);
       return Future.delayed(Duration.zero);
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
       _status.value = Status.AUTHENTICATED;
       update();
     }

@@ -2,7 +2,6 @@ import 'package:aimart/config/config.dart';
 import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/models/models.dart';
 import 'package:aimart/widgets/widgets.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,20 +13,13 @@ class SingleCategory extends StatelessWidget {
       Get.find<CategorySearchController>();
   final ProductController productController = Get.find<ProductController>();
 
-   SingleCategory({Key? key}) : super(key: key);
+  SingleCategory({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // double height = MediaQuery.of(context).size.height;
-    // double width = MediaQuery.of(context).size.width;
-    final String imageUrl =
-        Get.find<CategoryController>().getCategoryImageUrl(catId);
-
     buildSuggestionsByQuery(String query, String subCatName) {
       var suggestionList = productController.getProductByCatId(catId).isNotEmpty
-          ? productController
-              .getProductByCatId(catId)
-              .where((Product product) {
+          ? productController.getProductByCatId(catId).where((Product product) {
               var matchedName = query.isEmpty
                   ? false
                   : product.name.toLowerCase().contains(query.toLowerCase())
@@ -96,13 +88,6 @@ class SingleCategory extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           color: Colors.black26,
-          image: DecorationImage(
-            // image: NetworkImage(imageUrl),
-            image: CachedNetworkImageProvider(
-              imageUrl,
-            ),
-            fit: BoxFit.contain,
-          ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(15.0),
@@ -143,8 +128,8 @@ class SingleCategory extends StatelessWidget {
               ),
               Get.find<CategoryController>().getSubCategory(catId).isNotEmpty
                   ? SizedBox(
-                    height: 50,
-                    child: ListView(
+                      height: 50,
+                      child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: Get.find<CategoryController>()
                             .getSubCategory(catId)
@@ -160,9 +145,9 @@ class SingleCategory extends StatelessWidget {
                                         onSelected: (val) {
                                           controller.setSubCatName(e.name);
                                         },
-                                        selected:
-                                            controller.selectedSubCatName.value ==
-                                                e.name,
+                                        selected: controller
+                                                .selectedSubCatName.value ==
+                                            e.name,
                                         selectedColor: Pallete.primaryCol,
                                       );
                                     },
@@ -171,7 +156,7 @@ class SingleCategory extends StatelessWidget {
                               : Container();
                         }).toList(),
                       ),
-                  )
+                    )
                   : Container(),
               SizedBox(
                 height: 25,

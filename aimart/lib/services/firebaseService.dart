@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aimart/config/config.dart';
 import 'package:aimart/models/models.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -56,10 +58,10 @@ class FirebaseService {
     var userIfExist =
         await usersColsRefs.where("username", isEqualTo: dbuser.username).get();
     if (userIfExist.docs.isEmpty) {
-      print("Creating a new user in db");
+      log("Creating a new user in db");
       await usersColsRefs.doc(dbuser.username).set(dbuser);
     } else {
-      print("User already exists");
+      log("User already exists");
     }
   }
 

@@ -31,6 +31,5 @@ linter:
     constant_identifier_names: false
     overridden_fields: false
     annotate_overrides: false
-    avoid_print: false
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

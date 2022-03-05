@@ -2,7 +2,6 @@
 import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/models/models.dart';
 import 'package:aimart/utilities/utilities.dart';
-import 'package:aimart/views/views.dart';
 import 'package:aimart/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

@@ -1,12 +1,14 @@
 
+import 'dart:developer';
+
 import 'package:aimart/controllers/controllers.dart';
+import 'package:aimart/widgets/widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import 'auth_controller.dart';
-import 'widgets/authHeader.dart';
 import 'widgets/authPasswordFormField.dart';
 import 'widgets/authButton.dart';
 import 'widgets/authTextFormField.dart';
@@ -29,7 +31,7 @@ class SignupView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const SizedBox(height: 100.0),
-                AuthHeader(heading: "Sign Up"),
+                AppHeader(heading: "Sign Up"),
                 const SizedBox(height: 30.0),
                 AuthTextFormField(
                   controller: controller.name,
@@ -99,7 +101,7 @@ class SignupView extends StatelessWidget {
                           text: "Terms and Conditions",
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              print("Open Terms and Condition Page");
+                              log("Open Terms and Condition Page");
                             },
                           style: TextStyle(
                               fontWeight: FontWeight.bold,

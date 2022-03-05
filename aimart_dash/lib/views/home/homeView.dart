@@ -28,7 +28,7 @@ class HomeView extends StatelessWidget {
                   if (settingsController.isDarkMode.value) {
                     return Icon(Icons.light_mode);
                   } else {
-                    return Icon(Icons.dark_mode);
+                    return Icon(Icons.dark_mode); 
                   }
                 },
               ),

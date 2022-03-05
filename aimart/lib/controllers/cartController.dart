@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/models/models.dart';
 import 'package:aimart/services/services.dart';
@@ -24,7 +26,7 @@ class CartController extends GetxController {
     username.value =
         Utils.getUsername(Get.find<FirebaseAuthController>().user!.email!);
     _cartItemList.bindStream(FirebaseService.getAllCartItem(username.value));
-    print(username.value);
+    log(username.value);
     super.onInit();
   }
 

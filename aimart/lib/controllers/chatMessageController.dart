@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/models/models.dart';
 import 'package:aimart/services/services.dart';
@@ -20,7 +22,7 @@ class ChatMessageController extends GetxController {
   @override
   void onInit() {
     username.value = Get.arguments['id']!;
-    print(username.value);
+    log(username.value);
     _chatMessageList.bindStream(FirebaseService.getAllChatMessages(username.value));
     super.onInit();
   }

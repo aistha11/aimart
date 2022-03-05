@@ -7,7 +7,7 @@ class SettingsController extends GetxController {
 
   @override
   void onInit() {
-    isDarkMode.value = ThemeService().isDarkMode;
+    isDarkMode.value = ThemeService().isDarkMode; 
     print("DarkMode: ${isDarkMode.value}");
     super.onInit();
   }

@@ -1,61 +1,51 @@
-import 'package:aimart/config/config.dart';
+
+import 'package:aimart/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CheckoutSection extends StatelessWidget {
   final double price;
-  final Function onCheckout;
+  
 
   const CheckoutSection(
-      {Key? key, required this.price, required this.onCheckout})
+      {Key? key, required this.price,})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.black12,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+    
+    return SizedBox(
+      height: 90,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
           Padding(
-              padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    "Checkout Price:",
+            padding: const EdgeInsets.all(8.0),
+            // child: Text(
+            //   "Checkout Price: Rs. ${price.toStringAsFixed(0)}",
+            //   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+            // ),
+            child: RichText(
+              maxLines: 2,
+              text: TextSpan(
+                style: TextStyle(color: Colors.black87),
+                children: [
+                  TextSpan(
+                    text: "Subtotal: ",
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                   ),
-                  Spacer(),
-                  Text(
-                    price.toStringAsFixed(2),
+                  TextSpan(
+                    text: " Rs. ${price.toStringAsFixed(0)}",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                  )
-                ],
-              )),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Material(
-              color: Pallete.primaryCol,
-              elevation: 1.0,
-              child: InkWell(
-                splashColor: Colors.cyanAccent,
-                onTap: () {
-                  onCheckout();
-                },
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      "Checkout",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700),
-                    ),
                   ),
-                ),
+                ],
               ),
             ),
+          ),
+          AlignedButton(
+            btnName: "Checkout",
+            onPressed: () {
+              Get.toNamed("/checkout", arguments: {'subTotal': price});
+            },
           ),
         ],
       ),

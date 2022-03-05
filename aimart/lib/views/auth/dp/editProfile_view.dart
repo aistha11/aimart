@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:aimart/controllers/controllers.dart';
@@ -128,10 +129,10 @@ class _EditProfileViewState extends State<EditProfileView> {
 
   Future uploadImg() async {
     if (_imageFile == null) {
-      print("Image Not Selected\nReturning");
+      log("Image Not Selected\nReturning");
       return;
     }
-    print(path.basename(_imageFile!.path));
+    log(path.basename(_imageFile!.path));
     try {
       ref = firebase_storage.FirebaseStorage.instance
           .ref()
@@ -139,21 +140,21 @@ class _EditProfileViewState extends State<EditProfileView> {
       await ref.putFile(File(_imageFile!.path)).whenComplete(() async {
         await ref.getDownloadURL().then((value) {
           imgUrl = value;
-          print(imgUrl);
+          log(imgUrl);
         });
       });
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
   }
 
   _editProfile() async {
-    print("-----Save To Firebase--------");
-    print("Name: ${name.text}");
-    print("Number: ${number.text}");
-    print("ImageUrl: $imgUrl");
+    log("-----Save To Firebase--------");
+    log("Name: ${name.text}");
+    log("Number: ${number.text}");
+    log("ImageUrl: $imgUrl");
     try {
-      print("-----Uploading Image");
+      log("-----Uploading Image");
       await uploadImg();
       DbUser dbUser = DbUser(
         name: name.text,
@@ -164,10 +165,10 @@ class _EditProfileViewState extends State<EditProfileView> {
       );
       await FirebaseService.updateProfile(dbUser);
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
 
-    print("-----Done Save To Firebase--------");
+    log("-----Done Save To Firebase--------");
   }
 
   @override
@@ -245,7 +246,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                               color: Colors.white,
                             ),
                             onPressed: () {
-                              print("Change Image");
+                              log("Change Image");
                               _chooseImage(ImageSource.gallery);
                             },
                           ),

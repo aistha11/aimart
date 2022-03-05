@@ -1,8 +1,6 @@
 import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/models/models.dart';
-import 'package:aimart/utilities/utilities.dart';
 import 'package:aimart/widgets/widgets.dart';
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,11 +10,11 @@ class CartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Cart'),
-      ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          const SizedBox(height: 50.0),
+              AppHeader(heading: "Cart"),
           Flexible(
             child: GetX<CartController>(
               builder: (controller) {
@@ -26,6 +24,7 @@ class CartView extends StatelessWidget {
                   );
                 }
                 return ListView.builder(
+                  physics: BouncingScrollPhysics(),
                   itemCount: controller.cartItemList.length,
                   itemBuilder: (_, i) {
                     CartItem item = controller.cartItemList[i];
@@ -40,47 +39,11 @@ class CartView extends StatelessWidget {
           ),
           GetX<CartController>(
             builder: (controller) {
-              return CheckoutSection(
-                price: controller.totalPrice,
-                onCheckout: () async {
-                  try {
-                    if(controller.cartItemList.isEmpty){
-                      throw Exception("Your cart is empty. Add some for checkout");
-                    }
-                    ConnectivityResult connectivity =
-                        await Connectivity().checkConnectivity();
-                    if (connectivity == ConnectivityResult.none) {
-                      throw Exception("You are not connected to the internet");
-                    }
-                    
-
-                    Order order = Order(
-                      userId: Utils.getUsername(
-                          Get.find<FirebaseAuthController>().user!.email!),
-                      totalAmount: controller.totalPrice,
-                      orderState: "Pending",
-                      orderedItems: controller.cartItemList.map((cartItem) {
-                        OrderedItem orderedItem = OrderedItem(
-                          name: cartItem.name,
-                          imageUrl: cartItem.imageUrl,
-                          price: cartItem.price,
-                          productId: cartItem.productId,
-                          quantity: cartItem.quantity,
-                        );
-                        return orderedItem;
-                      }).toList(),
-                      orderDate: DateTime.now(),
-                    );
-                    await Get.find<OrderController>()
-                        .submitOrder(order)
-                        .then((value) {
-                      controller.deleteCart();
-                      Utils.showSnackBar("Success", "Your order is placed successfully");
-                    });
-                  } catch (e) {
-                    Utils.showSnackBar("Sorry!!!", Utils.getExceptionMessage(e.toString()));
-                  }
-                },
+              return Visibility(
+                visible: controller.cartItemList.isNotEmpty,
+                child: CheckoutSection(
+                  price: controller.totalPrice,
+                ),
               );
             },
           )

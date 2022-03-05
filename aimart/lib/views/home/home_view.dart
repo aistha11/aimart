@@ -1,6 +1,7 @@
 import 'package:aimart/bindings/bindings.dart';
 import 'package:aimart/config/config.dart';
 import 'package:aimart/config/pallete.dart';
+import 'package:aimart/constants/constants.dart';
 import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/utilities/utilities.dart';
 import 'package:aimart/views/views.dart';
@@ -37,7 +38,7 @@ class HomeView extends GetView<HomeController> {
               ),
               title: GestureDetector(
                 onTap: () {
-                  Get.toNamed("/search");
+                  navController.onPageChange(1);
                 },
                 child: Container(
                   height: height * 0.06,
