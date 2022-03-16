@@ -162,6 +162,7 @@ class _EditProfileViewState extends State<EditProfileView> {
         username: Get.find<ProfileController>().dbUser.value.username,
         profilePhoto: imgUrl,
         email: Get.find<ProfileController>().dbUser.value.email,
+        shippingAddresses: Get.find<ProfileController>().dbUser.value.shippingAddresses,
       );
       await FirebaseService.updateProfile(dbUser);
     } catch (e) {

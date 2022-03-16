@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "aimart-1011",
+  "private_key_id": "d29711e2f50f558833b24619b2ce6648af4c4afe",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCPKOJu+C4Zc9qv\nOS/K2rW8TMblCLC3RVouTego6TJV1cCgpwedTFnLYo3WP3qqlyafay1yZ3iWPqet\nMeKG/8gJETIUON9X/6hPgIv9vdFgyD3EHhPOdZ2rJ5R+qTJ/o2W8qSa9yYw03rMz\nUjgebxJc3RZC63MopXqWIID9xI6QtbUxFUWLMKJ69ZzHXW9sU1rRa6azkz3IhF1l\nDZwtoS0vGsBs4amdIFKiY5ZFPzco9YzELhF3E7pSfvs3/j7NJh8a5qQ8FQUOJCvm\n2GlXPgLSmWq4Njh7u2Hu96v1+IVJVx2f6cbIGK/E/FBW3J3OJxyZtVtgtQFqBasO\nu8F+zUCRAgMBAAECggEABW/NLJ9web86e3vRnrOwYeytA4LxWh5wQrCq+83CX3vh\nB0Dco0rEYLrXDd9GiG651OVQOidnjxYlTkimFJAnb7+3TgkMY1ZGVTGZr2rbZiBo\npxdo02cIVDkKNMa2cB47lX77hYrfUB0yg0UQtEgt03jCeQthydYB+ixVFb4Wl3R+\nmIQOAG5wC39C794Mnzsl/+aYG2gcXDDRzJ/Tnt7apHN2Ve2L0fPpksWxYcWwAi/o\nXPxa1UWDUBQhJuZsBoOXNNYivKEY7PIz+ZoV9rkiiBquGR9d7cemzVaz6bdF3wLt\nyj/wNQF6ZobpKPV3SxqbJic/7bgekRSBpxteJjJV+QKBgQDCuBLrucCwhv0Duti2\n1IG+d+cUNnOJmkhssM1NZVsLsE0HJsXJyKRH+PQaHER6iwDd0YK+VpluFYhV7Q3q\nhemJfSwvDsMDN3WNxVjdFosM2p7KOrZFXU8+WgY4x8DTQkMLwnHPkvw0UvjpbHVL\nxya9Nu9IH+D4mXf3hilIWp36iQKBgQC8NtSaY3M2mrkuE5QWJuEAuIx6hdgm1gCX\npeBx41C2BCXbLUFT3dIXoO9pSg3NBdnH6iyFEGwLGBUA6QK5Ah4ACvQqjV4wr5Hw\n/W1wKqA9fpXK7S5g08PhjFQNPnnFxdXzh4iBJTn16OkW+56Ku7uZW6lHi/X8lGz3\n9fWQKXhzyQKBgBRVnMQ5NcI5lpqZHKCbOKFnbB5UQWSRVBblr8rxVry1wJWKmwUj\niuRpPzSq1wvlEEYZ5wlxibxRS1eN1fIz4duV0tNnOz5OwFv5y/nqrMK+4e5Ei1xb\nDjd4t0WetqhZNx83QyNmOihMsenOhcFQHt+LqRljGt9bR4f13sHLlMvhAoGAaS9z\nbbz6nJ+nshp6/k5IHPEGgUrf3ARpXFb1snBJoQ98YJtQESC80zu70On0AIquhU1Y\nCB1/ZEvXISUXwnFudrOodUeARlE4jKf1S2RnHTbrW/dlnfN7W0fjiWtK/r5rragn\nH5XAaK/75D5HAl2coD5bwoJzvO7uXz10OVcT3BECgYAMP7NqmEqrzXRDJaWizR15\n/rohVNV3RAAlyaYBBQnL6TI3oWe5ZPGdHO/gVPAKgAKCMnVEFJOpJbpiolDg43cv\nc+8MX3XKX1sPEepAUgsaxBCAGEhe48LqFCHX8ymLoatNpcY9Irg3f0aume4qeuE2\nppYjwRTWeIHadXwxEhp+qg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "aimartbot@aimart-1011.iam.gserviceaccount.com",
+  "client_id": "101264313515499637806",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/aimartbot%40aimart-1011.iam.gserviceaccount.com"
+}

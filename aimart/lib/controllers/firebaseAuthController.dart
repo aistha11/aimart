@@ -58,6 +58,7 @@ class FirebaseAuthController extends GetxController {
             profilePhoto: "",
             email: uCreds.user!.email.toString(),
             username: username,
+            shippingAddresses: []
           );
           await FirebaseService.createDbUserById(dbuser);
           signIn(email, password);
@@ -151,6 +152,7 @@ class FirebaseAuthController extends GetxController {
             profilePhoto: uCreds.user!.photoURL.toString(),
             email: uCreds.user!.email.toString(),
             username: uCreds.user!.email!.split('@')[0],
+            shippingAddresses: []
           );
           await FirebaseService.createDbUserById(dbuser);
           _status.value = Status.AUTHENTICATED;

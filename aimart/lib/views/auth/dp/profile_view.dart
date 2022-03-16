@@ -1,4 +1,3 @@
-
 import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/models/models.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -31,7 +30,8 @@ class ProfileView extends StatelessWidget {
                 height: 250,
                 width: double.infinity,
                 child: CachedNetworkImage(
-                  imageUrl: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80",
+                  imageUrl:
+                      "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -43,70 +43,14 @@ class ProfileView extends StatelessWidget {
                   children: <Widget>[
                     Stack(
                       children: <Widget>[
-                        // Container(
-                        //   padding: EdgeInsets.all(16.0),
-                        //   margin: EdgeInsets.only(top: 16.0),
-                        //   decoration: BoxDecoration(
-                        //       color: Colors.white,
-                        //       borderRadius: BorderRadius.circular(5.0)),
-                        //   child: Column(
-                        //     crossAxisAlignment: CrossAxisAlignment.start,
-                        //     children: <Widget>[
-                        //       Container(
-                        //         margin: EdgeInsets.only(left: 96.0),
-                        //         child: Column(
-                        //           crossAxisAlignment: CrossAxisAlignment.start,
-                        //           children: <Widget>[
-                        //             Text(
-                        //               "${dpUser.name}",
-                        //             ),
-                        //             ListTile(
-                        //               contentPadding: EdgeInsets.all(0),
-                        //               title: Text("Product Designer"),
-                        //               subtitle: Text("Kathmandu"),
-                        //             ),
-                        //           ],
-                        //         ),
-                        //       ),
-                        //       SizedBox(height: 10.0),
-                        //       Row(
-                        //         children: <Widget>[
-                        //           Expanded(
-                        //             child: Column(
-                        //               children: <Widget>[
-                        //                 Text("285"),
-                        //                 Text("Likes")
-                        //               ],
-                        //             ),
-                        //           ),
-                        //           Expanded(
-                        //             child: Column(
-                        //               children: <Widget>[
-                        //                 Text("3025"),
-                        //                 Text("Comments")
-                        //               ],
-                        //             ),
-                        //           ),
-                        //           Expanded(
-                        //             child: Column(
-                        //               children: <Widget>[
-                        //                 Text("650"),
-                        //                 Text("Favourites")
-                        //               ],
-                        //             ),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
                         Container(
                           height: 110,
                           width: 110,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
                               image: DecorationImage(
-                                  image: CachedNetworkImageProvider(dpUser.profilePhoto),
+                                  image: CachedNetworkImageProvider(
+                                      dpUser.profilePhoto),
                                   fit: BoxFit.cover)),
                           margin: EdgeInsets.only(left: 16.0),
                         ),
@@ -141,7 +85,17 @@ class ProfileView extends StatelessWidget {
                             subtitle: Text(dpUser.username),
                             leading: Icon(Icons.verified_user_rounded),
                           ),
-                          
+                          ExpansionTile(
+                            leading: Icon(Icons.location_city),
+                            title: Text("Shipping addresses"),
+                            children: dpUser.shippingAddresses
+                                .map(
+                                  (e) => ListTile(
+                                    title: Text(e),
+                                  ),
+                                )
+                                .toList(),
+                          ),
                         ],
                       ),
                     )

@@ -14,4 +14,3 @@ CartController cartController = Get.find();
 OrderController orderController = Get.find();
 ContactController contactController = Get.find();
 ChatMessageController chatMessageController = Get.find();
-CheckoutController checkoutController = Get.find();

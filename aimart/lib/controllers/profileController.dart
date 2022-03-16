@@ -9,12 +9,12 @@ import 'package:get/get.dart';
 class ProfileController extends GetxController {
   Rx<DbUser> dbUser = Rx<DbUser>(
     DbUser(
-      name: "Ai Mart",
-      username: "aimart11",
-      number: null,
-      profilePhoto: "",
-      email: "aimart11@gmail.com",
-    ),
+        name: "Ai Mart",
+        username: "aimart11",
+        number: null,
+        profilePhoto: "",
+        email: "aimart11@gmail.com",
+        shippingAddresses: []),
   );
 
   getDbUser(String username) async {
@@ -31,5 +31,20 @@ class ProfileController extends GetxController {
 
     getDbUser(username);
     super.onInit();
+  }
+
+  Future<void> addShippingAddress(String newAddress)async {
+    List<String> newShippingAdressList = [];
+    newShippingAdressList.addAll(dbUser.value.shippingAddresses);
+    newShippingAdressList.add(newAddress);
+    DbUser upDbUser = DbUser(
+      id: dbUser.value.id,
+      name: dbUser.value.name,
+      username: dbUser.value.username,
+      profilePhoto: dbUser.value.profilePhoto,
+      email: dbUser.value.email,
+      shippingAddresses: newShippingAdressList,
+    );
+    await FirebaseService.updateProfile(upDbUser);
   }
 }
