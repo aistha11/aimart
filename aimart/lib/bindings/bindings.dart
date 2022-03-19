@@ -4,3 +4,4 @@ export 'chatsBinding.dart';
 export 'contactBinding.dart';
 export 'catSearchBinding.dart';
 export 'checkoutBinding.dart';
+export 'singleProductBinding.dart';

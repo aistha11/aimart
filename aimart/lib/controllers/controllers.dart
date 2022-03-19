@@ -11,3 +11,4 @@ export 'orderController.dart';
 export 'checkoutController.dart';
 export 'contactController.dart';
 export 'chatMessageController.dart';
+export 'reviewController.dart';

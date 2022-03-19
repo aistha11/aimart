@@ -6,3 +6,4 @@ export 'order.dart';
 export 'product.dart';
 export 'category.dart';
 export 'cartItem.dart';
+export 'review.dart';

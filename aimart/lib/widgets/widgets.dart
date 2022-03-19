@@ -11,3 +11,4 @@ export 'productCard.dart';
 export 'categoryWidget.dart';
 export 'caroslider.dart';
 export 'alignedButton.dart';
+export 'reviewsWidget.dart';
