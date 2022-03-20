@@ -20,41 +20,39 @@ class SingleProduct extends StatelessWidget {
     return Scaffold(
       backgroundColor: Pallete.cyan100,
       body: Stack(
-        fit: StackFit.expand,
+        fit: StackFit.loose,
         children: <Widget>[
-          Align(
-            alignment: Alignment.topCenter,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    width: Get.width,
-                    height: Get.height * .5,
-                    padding: EdgeInsets.all(1),
-                    child: CachedNetworkImage(
-                      imageUrl: product.imageUrl,
-                      fit: BoxFit.cover,
-                    ),
+          Column(
+            children: [
+              Stack(
+                children: [
+                  buildProductImage(product),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: buildAppBar(product),
                   ),
-                ),
-                buildAppBar(product),
-                // Align(
-                //   child: ,
-                // ),
-              ],
-            ),
+                ],
+              ),
+              buildProductDescription(product),
+            ],
           ),
-          Positioned(
-            bottom: 100,
-            child: SizedBox(child: ProductDescription(product: product)),
-          ),
-          // buildDraggableReview(product),
+          buildDraggableReview(product),
         ],
       ),
-      // floatingActionButton:
-      //     buildReviewButton(Get.find<ProfileController>().dbUser.value),
+      floatingActionButton:
+          buildReviewButton(Get.find<ProfileController>().dbUser.value),
+    );
+  }
+
+  Widget buildProductImage(Product product) {
+    return Container(
+      width: Get.width,
+      height: Get.height * .5,
+      padding: EdgeInsets.all(1),
+      child: CachedNetworkImage(
+        imageUrl: product.imageUrl,
+        fit: BoxFit.cover,
+      ),
     );
   }
 
@@ -203,21 +201,23 @@ class SingleProduct extends StatelessWidget {
           child: ListView(
             controller: scrollController,
             children: [
-              SizedBox(
-                height: 40,
-                child: Row(
-                  children: [
-                    Text("1 Review")
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: Get.height * 0.6,
-                child: Flexible(
-                  child: ReviewsWidget(
-                    dbUser: Get.find<ProfileController>().dbUser.value,
+              Column(
+                children: [
+                  // SizedBox(
+                  //   height: 40,
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(8.0),
+                  //     child: Row(
+                  //       children: [Text("1 Review")],
+                  //     ),
+                  //   ),
+                  // ),
+                  Expanded(
+                    child: ReviewsWidget(
+                      dbUser: Get.find<ProfileController>().dbUser.value,
+                    ),
                   ),
-                ),
+                ],
               ),
             ],
           ),
@@ -267,13 +267,8 @@ class SingleProduct extends StatelessWidget {
       backgroundColor: Colors.transparent,
     );
   }
-}
 
-class ProductDescription extends StatelessWidget {
-  const ProductDescription({Key? key, required this.product}) : super(key: key);
-  final Product product;
-  @override
-  Widget build(BuildContext context) {
+  Widget buildProductDescription(Product product) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

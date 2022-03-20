@@ -12,6 +12,18 @@ class ReviewController extends GetxController {
   final Rx<List<Review>> _reviewList = Rx<List<Review>>([]);
 
   List<Review> get reviewList => _reviewList.value;
+  int get getPositiveCount => _reviewList.value.where((element) => element.sentiment == 1).length;
+  int get getNeutralCount => _reviewList.value.where((element) => element.sentiment == 0).length;
+  int get getNegativeCount => _reviewList.value.where((element) => element.sentiment == -1).length;
+
+  double get getAverageRating {
+   
+    double totalSum = 0.0;
+    for (var review in reviewList) {
+      totalSum+=review.rating;
+    }
+    return totalSum/reviewList.length;
+  }
 
   var description = TextEditingController();
   var rating = 0.0.obs;
@@ -60,6 +72,7 @@ class ReviewController extends GetxController {
 
   Future<void> createReview() async {
     try {
+      await getSentiment(description.text);
       Review review = Review(
           id: Utils.getUsername(
               Get.find<FirebaseAuthController>().user!.email!),
@@ -80,7 +93,7 @@ class ReviewController extends GetxController {
     }
   }
 
-  getSentiment(String msg) async {
+  Future<void> getSentiment(String msg) async {
     sentiment.value = await SentimentService.getSentiment(msg);
     update();
   }
@@ -89,5 +102,6 @@ class ReviewController extends GetxController {
     description.text = "";
     rating.value = 0.0;
     enabled.value = false;
+    update();
   }
 }

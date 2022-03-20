@@ -1,4 +1,3 @@
-import 'package:aimart/config/config.dart';
 import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/models/models.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -22,7 +21,7 @@ class ReviewsWidget extends StatelessWidget {
           itemCount: controller.reviewList.length,
           itemBuilder: (_, i) {
             Review review = controller.reviewList[i];
-            return ReviewTile(key: Key(i.toString()), review: review);
+            return ReviewTile(review: review);
           },
         );
       },
@@ -33,9 +32,33 @@ class ReviewsWidget extends StatelessWidget {
 class ReviewTile extends StatelessWidget {
   const ReviewTile({Key? key, required this.review}) : super(key: key);
   final Review review;
+
+  Color getTileColor(int? sentiment){
+    switch (sentiment) {
+      case 1:
+        return Colors.green;
+      case -1:
+        return Colors.red;
+        
+      default:
+        return Colors.blue;
+    }
+  }
+  String getSentimentEmoji(int? sentiment){
+    switch (sentiment) {
+      case 1:
+        return "🤗";
+      case -1:
+        return "😣";
+        
+      default:
+        return "😐";
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      tileColor: getTileColor(review.sentiment),
       leading: SizedBox(
         height: Get.height * 0.055,
         child: CircleAvatar(
@@ -48,7 +71,7 @@ class ReviewTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            review.userInfo.name,
+            "${getSentimentEmoji(review.sentiment)} ${review.userInfo.name}",
             style: TextStyle(
               fontSize: 18,
             ),
@@ -60,7 +83,7 @@ class ReviewTile extends StatelessWidget {
                 rating: review.rating,
                 between: 5.0,
                 starSize: 20.0,
-                color: Pallete.primaryCol,
+                color: Color.fromARGB(255, 224, 207, 50),
               ),
               SizedBox(
                 width: 10,
@@ -68,7 +91,7 @@ class ReviewTile extends StatelessWidget {
               Text(
                 "${review.updateDate.year}-${review.updateDate.month}-${review.updateDate.day}",
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 12,
                 ),
               ),
             ],
@@ -88,33 +111,3 @@ class ReviewTile extends StatelessWidget {
     );
   }
 }
-
-// class ReviewButton extends StatelessWidget {
-//   const ReviewButton({Key? key,required this.dbUser}) : super(key: key);
-//   final DbUser dbUser;
-//   @override
-//   Widget build(BuildContext context) {
-//     return GetBuilder<ReviewController>(
-//       builder: (controller) {
-//         return controller.canReview
-//             ? Padding(
-//                 padding: const EdgeInsets.all(25.0),
-//                 child: Align(
-//                   alignment: Alignment.bottomRight,
-//                   child: FloatingActionButton(
-//                     backgroundColor: Colors.grey,
-//                     onPressed: () {
-                     
-//                     },
-//                     child: Icon(
-//                       Icons.reviews_outlined,
-//                       color: Pallete.primaryCol,
-//                     ),
-//                   ),
-//                 ),
-//               )
-//             : Padding(padding: EdgeInsets.all(8));
-//       },
-//     );
-//   }
-// }
