@@ -3,6 +3,7 @@ import 'package:aimart/config/config.dart';
 import 'package:aimart/config/pallete.dart';
 import 'package:aimart/constants/constants.dart';
 import 'package:aimart/controllers/controllers.dart';
+import 'package:aimart/routes/app_pages.dart';
 import 'package:aimart/utilities/utilities.dart';
 import 'package:aimart/views/views.dart';
 import 'package:aimart/widgets/widgets.dart';
@@ -22,6 +23,7 @@ class HomeView extends GetView<HomeController> {
         key: controller.scaffoldKey,
         drawer: MyDrawer(),
         body: CustomScrollView(
+          physics: NeverScrollableScrollPhysics(),
           slivers: [
             SliverAppBar(
               titleSpacing: -2,
@@ -86,11 +88,6 @@ class HomeView extends GetView<HomeController> {
               actions: [
                 InkWell(
                   child: SVGCircle(svgImage: "assets/images/chat.svg"),
-                  // child: Icon(
-                  //   FontAwesomeIcons.facebookMessenger,
-                  //   color: Colors.blueAccent,
-                  //   size: height * 0.04,
-                  // ),
                   onTap: () {
                     String email =
                         Get.find<FirebaseAuthController>().user!.email!;
@@ -117,117 +114,16 @@ class HomeView extends GetView<HomeController> {
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 color: Pallete.backgroundColor,
                 child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
                   child: Column(
-                    // direction: Axis.vertical,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(
                         height: 15.0,
                       ),
-                      GetX<CategoryController>(builder: (controller) {
-                        return Container(
-                          margin: EdgeInsets.only(top: 10),
-                          height: height * 0.15,
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: controller.categoryList.value.map((e) {
-                              return CategoryWidget(
-                                catId: e.id!,
-                                catName: e.name,
-                                imageUrl: e.imageUrl,
-                              );
-                            }).toList(),
-                          ),
-                        );
-                      }),
-                      GetX<ProductController>(builder: (controller) {
-                        return controller.featuredProducts.isNotEmpty
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 15.0, bottom: 15.0),
-                                    child: Text(
-                                      "Featured Products",
-                                      style: TextStyle(
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.only(bottom: 10.0),
-                                    height: height * 0.3,
-                                    // child: ListView(
-                                    //   scrollDirection: Axis.horizontal,
-                                    //   children:
-                                    //       controller.featuredBusiness.map((e) {
-                                    //     return Popular(
-                                    //       id: e.id,
-                                    //       listingName: e.name,
-                                    //       address: e.address,
-                                    //       imageUrl: e.caroBusinessImgs[0].imgUrl,
-                                    //     );
-                                    //   }).toList(),
-                                    // ),
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount:
-                                          controller.featuredProducts.length,
-                                      itemBuilder: (context, i) {
-                                        var e = controller.featuredProducts[i];
-                                        return ProductCard(
-                                          id: e.id!,
-                                          listingName: e.name,
-                                          price: e.price.toString(),
-                                          imageUrl: e.imageUrl,
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : Container();
-                      }),
-                      GetX<ProductController>(
-                        builder: (controller) {
-                          return controller.productList.isNotEmpty
-                              ? Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 10.0, bottom: 15.0),
-                                      child: Text(
-                                        "New Products",
-                                        style: TextStyle(
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.black),
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.only(bottom: 10.0),
-                                      height: Get.height * 0.3,
-                                      child: ListView(
-                                        scrollDirection: Axis.horizontal,
-                                        children:
-                                            controller.latestProducts.map((e) {
-                                          return ProductCard(
-                                            id: e.id!,
-                                            listingName: e.name,
-                                            price: e.price.toString(),
-                                            imageUrl: e.imageUrl,
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              : Container();
-                        },
-                      ),
+                      buildCategories(),
+                      buildFeatured(),
+                      buildLatestProduct(),
                     ],
                   ),
                 ),
@@ -236,6 +132,99 @@ class HomeView extends GetView<HomeController> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildCategories() {
+    return GetX<CategoryController>(
+      builder: (controller) {
+        var totalCategoryCount = controller.categoryList.value.length;
+        var showingCount = totalCategoryCount > 10 ? 10 : totalCategoryCount;
+        return HoriScrollCard(
+          color: Color.fromARGB(255, 211, 211, 211),
+          title: "Categories",
+          showingCount: showingCount,
+          totalCategoryCount: totalCategoryCount,
+          child: Container(
+            margin: EdgeInsets.all(10),
+            height: Get.height * 0.15,
+            child: ListView.builder(
+              itemCount: showingCount,
+              scrollDirection: Axis.horizontal,
+              physics: BouncingScrollPhysics(),
+              itemBuilder: (_, i) {
+                return CategoryWidget(category: controller.categories[i]);
+              },
+            ),
+          ),
+          buttonName: "View More",
+          onPressed: () {
+            Get.toNamed(Routes.CATEGORIES);
+          },
+        );
+      },
+    );
+  }
+
+  Widget buildFeatured() {
+    return GetX<ProductController>(
+      builder: (controller) {
+        var totalCategoryCount = controller.featuredProducts.length;
+        var showingCount = totalCategoryCount > 10 ? 10 : totalCategoryCount;
+        return HoriScrollCard(
+          color: Color.fromARGB(255, 211, 211, 211),
+          title: "Featured",
+          showingCount: showingCount,
+          totalCategoryCount: totalCategoryCount,
+          child: Container(
+            margin: EdgeInsets.all(10),
+            height: Get.height * 0.34,
+            child: ListView.builder(
+              itemCount: showingCount,
+              scrollDirection: Axis.horizontal,
+              physics: BouncingScrollPhysics(),
+              itemBuilder: (_, i) {
+                return ProductCard(
+                  product: controller.featuredProducts[i],
+                );
+              },
+            ),
+          ),
+          buttonName: "View More",
+          onPressed: () {},
+        );
+      },
+    );
+  }
+
+  Widget buildLatestProduct() {
+    return GetX<ProductController>(
+      builder: (controller) {
+        var totalCategoryCount = controller.latestProducts.length;
+        var showingCount = totalCategoryCount > 10 ? 10 : totalCategoryCount;
+        return HoriScrollCard(
+          color: Color.fromARGB(255, 211, 211, 211),
+          title: "New Products",
+          showingCount: showingCount,
+          totalCategoryCount: totalCategoryCount,
+          child: Container(
+            margin: EdgeInsets.all(10),
+            height: Get.height * 0.34,
+            child: ListView.builder(
+              itemCount: showingCount,
+              scrollDirection: Axis.horizontal,
+              physics: BouncingScrollPhysics(),
+              itemBuilder: (_, i) {
+                return ProductCard(
+                  product: controller.latestProducts[i],
+                );
+              },
+            ),
+          ),
+          buttonName: "View More",
+          onPressed: () {},
+        );
+      },
     );
   }
 }

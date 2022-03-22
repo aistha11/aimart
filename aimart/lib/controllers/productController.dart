@@ -12,13 +12,9 @@ class ProductController extends GetxController {
 
   final Rx<List<Product>> _productList = Rx<List<Product>>([]);
 
-  final Rx<List<Product>> _featuredProducts = Rx<List<Product>>([]);
+  List<Product> get featuredProducts => _productList.value.where((e) => e.featured == true).toList();
 
-  List<Product> get featuredProducts => _featuredProducts.value;
-
-  final Rx<List<Product>> _latestProducts = Rx<List<Product>>([]);
-
-  List<Product> get latestProducts => _latestProducts.value;
+  List<Product> get latestProducts => _productList.value.where((e) => (DateTime.now().difference(e.updateDate).inDays)<3).toList();
 
   List<Product> get productList => _productList.value.where((e){
     return e.name.toLowerCase().contains(query.value.toLowerCase());
@@ -27,8 +23,7 @@ class ProductController extends GetxController {
   @override
   void onInit() {
     _productList.bindStream(FirebaseService.getProducts());
-    _featuredProducts.bindStream(FirebaseService.getFeaturedProducts(10));
-    _latestProducts.bindStream(FirebaseService.getLatestProducts(10));
+
     super.onInit();
   }
 

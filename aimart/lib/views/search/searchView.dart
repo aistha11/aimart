@@ -55,6 +55,7 @@ class SearchView extends StatelessWidget {
     }
     return Flexible(
       child: ListView.separated(
+        physics: BouncingScrollPhysics(),
         separatorBuilder: (_, i) {
           return SizedBox(
             height: 5.0,

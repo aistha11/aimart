@@ -12,3 +12,5 @@ export 'categoryWidget.dart';
 export 'caroslider.dart';
 export 'alignedButton.dart';
 export 'reviewsWidget.dart';
+export 'horiScrollCard.dart';
+export 'resPrice.dart';

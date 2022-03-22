@@ -26,6 +26,9 @@ class Product extends DatabaseItem with EquatableMixin{
         required this.description,
         required this.price,
         this.discount = 0,
+        this.rating,
+        this.sales,
+        this.views,
         this.featured = false,
         required this.categoryId,
         required this.subCategory,
@@ -38,6 +41,9 @@ class Product extends DatabaseItem with EquatableMixin{
     final String description;
     final double price;
     final double discount;
+    final double? rating;
+    final int? sales;
+    final int? views;
     final bool featured;
     final String categoryId;
     final String subCategory;
@@ -50,6 +56,9 @@ class Product extends DatabaseItem with EquatableMixin{
         description: json["description"],
         price: json["price"],
         discount: json["discount"],
+        rating: json["rating"]??0.0,
+        sales: json["sales"]??0,
+        views: json["views"]??0,
         featured: json["featured"],
         categoryId: json["categoryId"],
         subCategory: json["subCategory"],
@@ -62,6 +71,9 @@ class Product extends DatabaseItem with EquatableMixin{
         "description": description,
         "price": price,
         "discount": discount,
+        "rating": rating,
+        "sales": sales,
+        "views": views,
         "featured": featured,
         "categoryId": categoryId,
         "subCategory": subCategory,

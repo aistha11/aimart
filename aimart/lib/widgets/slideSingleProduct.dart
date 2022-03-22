@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:aimart/config/config.dart';
 import 'package:aimart/models/models.dart';
-import 'package:aimart/widgets/reviewsWidget.dart';
+import 'package:aimart/widgets/widgets.dart';
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -430,18 +430,11 @@ class _SlideSingleProductState extends State<SlideSingleProduct> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
-            child: Text(
-              "Rs ${product.price.toStringAsFixed(2)}",
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: 30.0,
-              ),
-            ),
+            child: ResPrice(price: product.price, large: true,),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
             child: GetX<ReviewController>(
-             
               builder: (reviewController) {
                 return StarRating(
                   length: 5,
@@ -470,35 +463,6 @@ class _SlideSingleProductState extends State<SlideSingleProduct> {
               maxLines: 6,
             ),
           ),
-          // Container(
-          //   padding: const EdgeInsets.only(bottom: 15.0, top: 15),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.end,
-          //     children: [
-          //       ElevatedButton(
-          //         style: ElevatedButton.styleFrom(
-          //           primary: Pallete.primaryCol,
-          //           shape: RoundedRectangleBorder(
-          //             borderRadius: BorderRadius.only(
-          //                 topLeft: Radius.circular(40),
-          //                 bottomLeft: Radius.circular(40)),
-          //           ),
-          //         ),
-          //         onPressed: () async {
-          //           await Get.find<CartController>().addToCart(
-          //             product,
-          //             1,
-          //           );
-          //         },
-          //         child: Padding(
-          //           padding: const EdgeInsets.symmetric(
-          //               vertical: 18.0, horizontal: 32.0),
-          //           child: Text("Add to cart"),
-          //         ),
-          //       )
-          //     ],
-          //   ),
-          // ),
         ],
       ),
     );

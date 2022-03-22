@@ -1,23 +1,18 @@
+import 'package:aimart/models/category.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
-
 class CategoryWidget extends StatelessWidget {
-  final String catId;
-  final String catName;
-  final String imageUrl;
-   const CategoryWidget(
-      {Key? key, required this.catName, required this.imageUrl, required this.catId}) : super(key: key);
+  
+  final Category category;
+  const CategoryWidget({Key? key, required this.category}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-  //  double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        // Navigator.of(context).pushNamed("/mybusiness");
-        Get.toNamed("/category/$catId");
+        Get.toNamed("/category/${category.id}");
       },
       child: Padding(
         padding: const EdgeInsets.only(right: 10.0),
@@ -38,10 +33,9 @@ class CategoryWidget extends StatelessWidget {
                   height: 70,
                   width: width * 0.43,
                   fit: BoxFit.cover,
-                  image: CachedNetworkImageProvider(imageUrl),
+                  image: CachedNetworkImageProvider(category.imageUrl),
                 ),
               ),
-              
               SizedBox(
                 height: 5.0,
               ),
@@ -51,7 +45,7 @@ class CategoryWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      catName,
+                      category.name,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       textAlign: TextAlign.center,

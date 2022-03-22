@@ -17,6 +17,7 @@ class MyDrawer extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
         child: ListView(
+          physics: BouncingScrollPhysics(),
           children: [
             Column(
               children: [

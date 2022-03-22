@@ -17,6 +17,7 @@ class AppPages {
     ),
     GetPage(name: Routes.CHECKOUT, page:()=> CheckoutView(),binding: CheckoutBinding()),
     GetPage(name: Routes.CONTACTUS, page:()=> ContactView(), binding: ContactBinding()),
+    GetPage(name: Routes.CATEGORIES, page:()=> AllCategories()),
     GetPage(name: Routes.SINGLECATEGORY, page:()=> SingleCategory(), binding: CategorySearchBinding()),
     GetPage(name: Routes.SINGLEPRODUCT, page:()=> SlideSingleProduct(), binding: SingleProductBinding()),
     // GetPage(name: Routes.SINGLEPRODUCT, page:()=> SingleProduct(), binding: SingleProductBinding()),
