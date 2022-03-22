@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>980520365196-3kcg0hvncfgmr50ghvrtegg9cg4c89tn.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.980520365196-3kcg0hvncfgmr50ghvrtegg9cg4c89tn</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>980520365196-agfqv8psq72klqk6gluok49ia7epoui2.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCDHPw4ixi0GpgsW7Eo4xm5SzvLYAjb1TY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>980520365196</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.aistha.aimart</string>
+	<key>PROJECT_ID</key>
+	<string>aimart-1011</string>
+	<key>STORAGE_BUCKET</key>
+	<string>aimart-1011.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:980520365196:ios:f425197ebe3b45db991fa9</string>
+</dict>
+</plist>
