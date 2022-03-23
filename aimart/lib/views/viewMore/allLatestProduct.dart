@@ -1,12 +1,12 @@
 import 'package:aimart/config/config.dart';
 import 'package:aimart/controllers/controllers.dart';
-import 'package:aimart/widgets/categoryGridView.dart';
+import 'package:aimart/widgets/productGridView.dart';
 import 'package:aimart/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AllCategories extends StatelessWidget {
-  const AllCategories({Key? key}) : super(key: key);
+class AllLatestProduct extends StatelessWidget {
+  const AllLatestProduct({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +26,17 @@ class AllCategories extends StatelessWidget {
                   },
                   icon: Icon(Icons.arrow_back_ios_new),
                 ),
-                AppHeader(heading: "All Categories"),
+                AppHeader(heading: "Latest Products"),
               ],
             ),
             SizedBox(
               height: 30,
             ),
-            GetX<CategoryController>(
-              builder: (categoryController) {
-                return CategoryGridView(categoryList: categoryController.categories,);
+            GetX<ProductController>(
+              builder: (productController) {
+                return ProductGridView(productList: productController.latestProducts,); 
               },
-            )
+            ),
           ],
         ),
       ),

@@ -191,7 +191,9 @@ class HomeView extends GetView<HomeController> {
             ),
           ),
           buttonName: "View More",
-          onPressed: () {},
+          onPressed: () {
+            Get.toNamed(Routes.FEATUREDPRODUCTS);
+          },
         );
       },
     );
@@ -222,7 +224,9 @@ class HomeView extends GetView<HomeController> {
             ),
           ),
           buttonName: "View More",
-          onPressed: () {},
+          onPressed: () {
+            Get.toNamed(Routes.LATESTPRODUCTS);
+          },
         );
       },
     );
