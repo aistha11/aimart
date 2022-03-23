@@ -7,6 +7,8 @@ class ChatMessage extends DatabaseItem {
     required this.message,
     required this.senderId,
     required this.receiverId,
+    required this.type,
+     this.photoUrl,
     required this.updateDate,
   }) : super(id);
 
@@ -14,6 +16,8 @@ class ChatMessage extends DatabaseItem {
   final String message;
   final String senderId;
   final String receiverId;
+  String type;
+  String? photoUrl;
   final DateTime updateDate;
 
   factory ChatMessage.fromMap(String id, Map<String, dynamic> json) => ChatMessage(
@@ -21,6 +25,8 @@ class ChatMessage extends DatabaseItem {
         message: json["message"],
         senderId: json["senderId"],
         receiverId: json["receiverId"],
+        type: json["type"],
+        photoUrl: json["photoUrl"],
         updateDate: json["updateDate"]?.toDate(),
       );
 
@@ -28,6 +34,8 @@ class ChatMessage extends DatabaseItem {
         "message": message,
         "senderId": senderId,
         "receiverId": receiverId,
+        "type": type,
+        "photoUrl": photoUrl,
         "updateDate": updateDate,
       };
 }
