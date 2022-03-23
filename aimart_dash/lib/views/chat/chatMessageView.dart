@@ -1,8 +1,15 @@
+import 'package:aimart_dash/config/config.dart';
+import 'package:aimart_dash/constants/dependencies.dart';
+import 'package:aimart_dash/constants/messageType.dart';
 import 'package:aimart_dash/controllers/controllers.dart';
 import 'package:aimart_dash/models/models.dart';
+import 'package:aimart_dash/widgets/imagePreview.dart';
 import 'package:aimart_dash/widgets/widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+const ADMINID = "aimart11";
 
 class ChatMessageView extends GetView<ChatMessageController> {
   final ChatUser chatUser;
@@ -81,6 +88,15 @@ class ChatMessageView extends GetView<ChatMessageController> {
               );
             }),
           ),
+          Obx(() {
+            return controller.uploading.value
+                ? Container(
+                    alignment: Alignment.centerRight,
+                    margin: EdgeInsets.only(right: 15),
+                    child: CircularProgressIndicator(),
+                  )
+                : Container();
+          }),
           ChatMessageField(
             chatUser: chatUser,
           ),
@@ -131,7 +147,18 @@ class ChatMessageView extends GetView<ChatMessageController> {
           ],
 
           ///Chat bubbles
-          Container(
+          message.type == MESSAGE_TYPE_IMAGE
+              ? GestureDetector(
+                  onTap: () {
+                    Get.to(() => ImagePreview(imageUrl: message.photoUrl!));
+                  },
+                  child: CachedNetworkImage(
+                    imageUrl: message.photoUrl!,
+                    height: 250,
+                    width: 250,
+                  ),
+                )
+              :Container(
             padding: EdgeInsets.only(
               bottom: 5,
               right: 5,
@@ -216,6 +243,19 @@ class ChatMessageField extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
+          IconButton(
+            icon: Icon(Icons.image),
+            color: Pallete.primaryCol,
+            onPressed: () async {
+              await chatMessageController.chooseImage();
+              if(chatMessageController.pickedImages.value.isEmpty){
+                return;
+              }
+              await chatMessageController.uploadFile();
+              await chatMessageController.sendImageMessageByAdmin(
+                  chatUser, ADMINID, chatMessageController.imageUrl.value);
+            },
+          ),
           Expanded(
             child: GetBuilder<ChatMessageController>(builder: (controller) {
               return TextField(
@@ -230,7 +270,7 @@ class ChatMessageField extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20.0)),
                     hintText: "Aa"),
                 onEditingComplete: () {
-                  controller.sendMessageByAdmin(chatUser);
+                  controller.sendTextMessageByAdmin(chatUser, ADMINID);
                 },
               );
             }),
@@ -239,7 +279,7 @@ class ChatMessageField extends StatelessWidget {
             icon: Icon(Icons.send),
             color: Theme.of(context).primaryColor,
             onPressed: () {
-              Get.find<ChatMessageController>().sendMessageByAdmin(chatUser);
+              Get.find<ChatMessageController>().sendTextMessageByAdmin(chatUser, ADMINID);
             },
           )
         ],
