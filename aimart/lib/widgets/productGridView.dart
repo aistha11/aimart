@@ -18,6 +18,8 @@ class ProductGridView extends StatelessWidget {
         child: GridView.builder(
           itemCount: productList.length,
           physics: BouncingScrollPhysics(),
+          primary: false,
+          shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             childAspectRatio: (itemWidth / itemHeight),

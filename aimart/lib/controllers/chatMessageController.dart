@@ -23,9 +23,11 @@ class ChatMessageController extends GetxController {
 
   var username = "".obs;
 
+
   var uploading = false.obs;
 
   var imageUrl = "".obs;
+
 
   final picker = ImagePicker();
 

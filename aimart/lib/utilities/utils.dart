@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,7 +25,8 @@ class Utils {
   }
 
   static String getInitials(String name) {
-    if (name != "") {
+    try {
+      if (name != "") {
       List<String> nameSplit = name.split(" ");
       String firstNameInitial = nameSplit[0][0];
       String lastNameInitial = nameSplit[1][0];
@@ -31,12 +34,21 @@ class Utils {
     } else {
       return "NS";
     }
+    } catch (e) {
+      log(e.toString());
+      return getFirstInitials(name);
+    }
   }
 
   static String getFirstInitials(String string) {
-    List<String> stringSplit = string.split(" ");
+    try {
+      List<String> stringSplit = string.split(" ");
     String firstInitials = stringSplit[0];
-    return firstInitials;
+    return firstInitials;   
+    } catch (e) {
+      log(e.toString());
+      return "N";
+    }
   }
 
   static String getExceptionMessage(String string) {

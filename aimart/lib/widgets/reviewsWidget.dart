@@ -1,6 +1,6 @@
 import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/models/models.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:aimart/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:star_rating/star_rating.dart';
@@ -33,39 +33,38 @@ class ReviewTile extends StatelessWidget {
   const ReviewTile({Key? key, required this.review}) : super(key: key);
   final Review review;
 
-  Color getTileColor(int? sentiment){
+  Color getTileColor(int? sentiment) {
     switch (sentiment) {
       case 1:
         return Colors.green;
       case -1:
         return Colors.red;
-        
+
       default:
         return Colors.blue;
     }
   }
-  String getSentimentEmoji(int? sentiment){
+
+  String getSentimentEmoji(int? sentiment) {
     switch (sentiment) {
       case 1:
         return "🤗";
       case -1:
         return "😣";
-        
+
       default:
         return "😐";
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
       tileColor: getTileColor(review.sentiment),
-      leading: SizedBox(
-        height: Get.height * 0.055,
-        child: CircleAvatar(
-          foregroundImage:
-              CachedNetworkImageProvider(review.userInfo.profilePhoto),
-          radius: 21.0,
-        ),
+      leading: UserAvatar(
+        profileUrl: review.userInfo.profilePhoto,
+        name: review.userInfo.name,
+        radius: 21,
       ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

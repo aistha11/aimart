@@ -26,6 +26,7 @@ class HoriScrollCard extends StatelessWidget {
       visible: showingCount != 0,
       child: Card(
         color: color,
+        margin: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: Column(

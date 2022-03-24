@@ -1,5 +1,6 @@
 import 'package:aimart/controllers/controllers.dart';
 import 'package:aimart/models/models.dart';
+import 'package:aimart/widgets/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,12 +48,15 @@ class ProfileView extends StatelessWidget {
                           height: 110,
                           width: 110,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              image: DecorationImage(
-                                  image: CachedNetworkImageProvider(
-                                      dpUser.profilePhoto),
-                                  fit: BoxFit.cover)),
+                            borderRadius: BorderRadius.circular(10.0),
+                            // image: DecorationImage(
+                            //   image: CachedNetworkImageProvider(
+                            //       dpUser.profilePhoto),
+                            //   fit: BoxFit.cover,
+                            // ),
+                          ),
                           margin: EdgeInsets.only(left: 16.0),
+                          child: UserAvatar(profileUrl: dpUser.profilePhoto, name: dpUser.name, isRound: false,),
                         ),
                       ],
                     ),

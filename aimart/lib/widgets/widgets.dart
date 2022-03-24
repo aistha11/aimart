@@ -3,6 +3,7 @@ export 'myDrawer.dart';
 export 'markdownView.dart';
 export 'myDrawer.dart';
 export 'drawerListTile.dart';
+export 'userAvatar.dart';
 export 'svgCircle.dart';
 export 'cartItemTile.dart';
 export 'checkoutSection.dart';

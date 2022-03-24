@@ -5,7 +5,7 @@ import 'package:aimart/widgets/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:star_rating/star_rating.dart';
+// import 'package:star_rating/star_rating.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -100,13 +100,13 @@ class ProductCard extends StatelessWidget {
                       price: product.price,
                       mini: true,
                     ),
-                    StarRating(
-                      length: 5,
-                      rating: product.rating!,
-                      between: 5.0,
-                      starSize: 20.0,
-                      color: Color.fromARGB(255, 224, 207, 50),
-                    ),
+                    // StarRating(
+                    //   length: 5,
+                    //   rating: product.rating!,
+                    //   between: 5.0,
+                    //   starSize: 20.0,
+                    //   color: Color.fromARGB(255, 224, 207, 50),
+                    // ),
                   ],
                 ),
               )

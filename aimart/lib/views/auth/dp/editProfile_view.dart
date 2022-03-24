@@ -83,7 +83,7 @@ class _EditProfileViewState extends State<EditProfileView> {
 
   Widget _previewDP() {
     imgUrl = imgUrl.isEmpty
-        ? "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+        ? "https://firebasestorage.googleapis.com/v0/b/aimart-1011.appspot.com/o/assets%2Fempty_profile_photo.jpeg?alt=media&token=b7c59d45-2634-4edf-b582-76c54e6e89a6"
         : imgUrl;
 
     bool isFromNet = true;

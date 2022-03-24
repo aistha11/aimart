@@ -252,14 +252,15 @@ class _SlideSingleProductState extends State<SlideSingleProduct> {
             height: 30,
           ),
           ListTile(
-            leading: SizedBox(
-              height: Get.height * 0.055,
-              child: CircleAvatar(
-                foregroundImage:
-                    CachedNetworkImageProvider(dbUser.profilePhoto),
-                radius: 21.0,
-              ),
-            ),
+            // leading: SizedBox(
+            //   height: Get.height * 0.055,
+            //   child: CircleAvatar(
+            //     foregroundImage:
+            //         CachedNetworkImageProvider(dbUser.profilePhoto),
+            //     radius: 21.0,
+            //   ),
+            // ),
+            leading: UserAvatar(name: dbUser.name,profileUrl: dbUser.profilePhoto,radius: 21.0,),
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
