@@ -16,23 +16,23 @@ class HomeView extends StatelessWidget {
         appBar: AppBar(
           title: Text("Ai-Mart Dashboard"),
           actions: [
-            IconButton(
-              onPressed: () {
-                ThemeService().switchTheme();
-                settingsController
-                    .toggleThemeMode(!settingsController.isDarkMode.value);
-              },
-              icon: Obx(
-                () {
-                  print("Dark Mode: ${settingsController.isDarkMode.value}");
-                  if (settingsController.isDarkMode.value) {
-                    return Icon(Icons.light_mode);
-                  } else {
-                    return Icon(Icons.dark_mode); 
-                  }
-                },
-              ),
-            ),
+            // IconButton(
+            //   onPressed: () {
+            //     ThemeService().switchTheme();
+            //     settingsController
+            //         .toggleThemeMode(!settingsController.isDarkMode.value);
+            //   },
+            //   icon: Obx(
+            //     () {
+            //       print("Dark Mode: ${settingsController.isDarkMode.value}");
+            //       if (settingsController.isDarkMode.value) {
+            //         return Icon(Icons.light_mode);
+            //       } else {
+            //         return Icon(Icons.dark_mode); 
+            //       }
+            //     },
+            //   ),
+            // ),
             IconButton(
               onPressed: () async {
                 await Get.find<FirebaseAuthController>().signOut();

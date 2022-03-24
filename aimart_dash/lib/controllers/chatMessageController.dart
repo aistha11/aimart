@@ -1,7 +1,6 @@
 import 'package:aimart_dash/constants/messageType.dart';
 import 'package:aimart_dash/controllers/controllers.dart';
 import 'package:aimart_dash/models/models.dart';
-import 'package:aimart_dash/services/firebaseService.dart';
 import 'package:aimart_dash/services/services.dart';
 import 'package:aimart_dash/utilities/utilities.dart';
 import 'package:connectivity/connectivity.dart';
