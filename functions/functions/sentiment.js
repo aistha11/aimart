@@ -32,7 +32,9 @@ exports.sentiment = functions.https.onRequest((req, res) => {
 
   const analyzed = analyzer.getSentiment(stopWordsRemoved);
 
-  if (analyzed >= 1) return res.send({ sentiment: 1 }); // positive
-  if (analyzed === 0) return res.send({ sentiment: 0 }); // neutral
-  return res.send({ sentiment: -1 }); // negative
+  // if (analyzed >= 1) return res.send({ sentiment: 1 }); // positive
+  // if (analyzed === 0) return res.send({ sentiment: 0 }); // neutral
+  // return res.send({ sentiment: -1 }); // negative
+
+  return res.send({sentiment: analyzed});
 });
