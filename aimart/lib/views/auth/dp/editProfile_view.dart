@@ -165,7 +165,10 @@ class _EditProfileViewState extends State<EditProfileView> {
         shippingAddresses: Get.find<ProfileController>().dbUser.value.shippingAddresses,
       );
       await FirebaseService.updateProfile(dbUser);
+      Get.snackbar("Success", "Your profile is updated successfully");
     } catch (e) {
+      Get.snackbar("Error", "Something went wrong");
+
       log(e.toString());
     }
 

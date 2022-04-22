@@ -78,6 +78,11 @@ class ProfileView extends StatelessWidget {
                             leading: Icon(Icons.email),
                           ),
                           ListTile(
+                            title: Text("Name"),
+                            subtitle: Text(dpUser.name),
+                            leading: Icon(Icons.label),
+                          ),
+                          ListTile(
                             title: Text("Number"),
                             subtitle: dpUser.number == null
                                 ? Text("Not Available")

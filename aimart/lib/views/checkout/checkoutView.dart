@@ -122,6 +122,7 @@ class CheckoutView extends GetView<CheckoutController> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
+                  
                   controller.placeOrder();
                   Get.back();
                 },

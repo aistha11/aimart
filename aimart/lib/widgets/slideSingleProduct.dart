@@ -233,7 +233,9 @@ class _SlideSingleProductState extends State<SlideSingleProduct> {
             SizedBox(
               height: Get.height * 0.6,
               child: ReviewsWidget(
-                  dbUser: Get.find<ProfileController>().dbUser.value),
+                dbUser: Get.find<ProfileController>().dbUser.value,
+                productId: productId
+              ),
             ),
             SizedBox(
               height: 24,
@@ -260,7 +262,11 @@ class _SlideSingleProductState extends State<SlideSingleProduct> {
             //     radius: 21.0,
             //   ),
             // ),
-            leading: UserAvatar(name: dbUser.name,profileUrl: dbUser.profilePhoto,radius: 21.0,),
+            leading: UserAvatar(
+              name: dbUser.name,
+              profileUrl: dbUser.profilePhoto,
+              radius: 21.0,
+            ),
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -271,18 +277,43 @@ class _SlideSingleProductState extends State<SlideSingleProduct> {
                     fontSize: 18,
                   ),
                 ),
-                GetX<ReviewController>(builder: (reviewController) {
-                  return StarRating(
-                    length: 5,
-                    rating: reviewController.rating.value,
-                    between: 5.0,
-                    onRaitingTap: (rat) {
-                      reviewController.setRating(rat);
-                    },
-                    starSize: 30.0,
-                    color: Pallete.primaryCol,
-                  );
-                }),
+                // GetX<ReviewController>(builder: (reviewController) {
+                //   return Row(
+                //     children: [
+                //       StarRating(
+                //         length: 5,
+                //         // rating: reviewController.rating.value,
+                //         rating: 2.9,
+                //         between: 5.0,
+                //         // onRaitingTap: (rat) {
+                //         //   reviewController.setRating(rat);
+                //         // },
+                //         starSize: 30.0,
+                //         color: Pallete.primaryCol,
+                //       ),
+                //       SizedBox(width: 10,),
+                //       Text("${reviewController.rating.value}/5")
+                //     ],
+                //   );
+                // }),
+                Row(
+                  children: [
+                    StarRating(
+                      length: 5,
+                      // rating: reviewController.rating.value,
+                      rating: 0,
+                      between: 5.0,
+                      // onRaitingTap: (rat) {
+                      //   reviewController.setRating(rat);
+                      // },
+                      starSize: 30.0,
+                      color: Pallete.primaryCol,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                  ],
+                )
               ],
             ),
           ),
@@ -431,22 +462,25 @@ class _SlideSingleProductState extends State<SlideSingleProduct> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
-            child: ResPrice(price: product.price, large: true,),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
-            child: GetX<ReviewController>(
-              builder: (reviewController) {
-                return StarRating(
-                  length: 5,
-                  rating: reviewController.getAverageRating,
-                  between: 5.0,
-                  starSize: 20.0,
-                  color: Color.fromARGB(255, 224, 207, 50),
-                );
-              },
+            child: ResPrice(
+              price: product.price,
+              large: true,
             ),
           ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+          //   child: GetX<ReviewController>(
+          //     builder: (reviewController) {
+          //       return StarRating(
+          //         length: 5,
+          //         rating: reviewController.getAverageRating,
+          //         between: 5.0,
+          //         starSize: 20.0,
+          //         color: Color.fromARGB(255, 224, 207, 50),
+          //       );
+          //     },
+          //   ),
+          // ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
             child: Text(

@@ -6,8 +6,9 @@ import 'package:get/get.dart';
 import 'package:star_rating/star_rating.dart';
 
 class ReviewsWidget extends StatelessWidget {
-  const ReviewsWidget({Key? key, required this.dbUser}) : super(key: key);
+  const ReviewsWidget({Key? key, required this.dbUser,required this.productId}) : super(key: key);
   final DbUser dbUser;
+  final String productId;
   @override
   Widget build(BuildContext context) {
     return GetX<ReviewController>(
@@ -21,7 +22,7 @@ class ReviewsWidget extends StatelessWidget {
           itemCount: controller.reviewList.length,
           itemBuilder: (_, i) {
             Review review = controller.reviewList[i];
-            return ReviewTile(review: review);
+            return ReviewTile(review: review, productId: productId,);
           },
         );
       },
@@ -30,8 +31,9 @@ class ReviewsWidget extends StatelessWidget {
 }
 
 class ReviewTile extends StatelessWidget {
-  const ReviewTile({Key? key, required this.review}) : super(key: key);
+  const ReviewTile({Key? key, required this.review,required this.productId}) : super(key: key);
   final Review review;
+  final String productId;
 
   Color getTileColor(int? sentiment) {
     switch (sentiment) {
@@ -60,6 +62,9 @@ class ReviewTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onLongPress: (){
+        Get.find<ReviewController>().deleteReview(productId, review.id);
+      },
       tileColor: getTileColor(review.sentiment),
       leading: UserAvatar(
         profileUrl: review.userInfo.profilePhoto,

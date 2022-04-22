@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:aimart/controllers/profileController.dart';
 import 'package:aimart/models/models.dart';
+import 'package:aimart/models/mySVM.dart';
 import 'package:aimart/services/services.dart';
 import 'package:aimart/utilities/utilities.dart';
 import 'package:flutter/material.dart';
@@ -12,17 +14,19 @@ class ReviewController extends GetxController {
   final Rx<List<Review>> _reviewList = Rx<List<Review>>([]);
 
   List<Review> get reviewList => _reviewList.value;
-  int get getPositiveCount => _reviewList.value.where((element) => element.sentiment == 1).length;
-  int get getNeutralCount => _reviewList.value.where((element) => element.sentiment == 0).length;
-  int get getNegativeCount => _reviewList.value.where((element) => element.sentiment == -1).length;
+  int get getPositiveCount =>
+      _reviewList.value.where((element) => element.sentiment == 1).length;
+  int get getNeutralCount =>
+      _reviewList.value.where((element) => element.sentiment == 0).length;
+  int get getNegativeCount =>
+      _reviewList.value.where((element) => element.sentiment == -1).length;
 
   double get getAverageRating {
-   
     double totalSum = 0.0;
     for (var review in reviewList) {
-      totalSum+=review.rating;
+      totalSum += review.rating;
     }
-    return totalSum/reviewList.length;
+    return totalSum / reviewList.length;
   }
 
   var description = TextEditingController();
@@ -80,8 +84,9 @@ class ReviewController extends GetxController {
           rating: rating.value,
           sentiment: sentiment.value,
           userInfo: UserInfo(
-            name: Get.find<FirebaseAuthController>().user!.displayName!,
-            profilePhoto: Get.find<FirebaseAuthController>().user!.photoURL!,
+            name: Get.find<ProfileController>().dbUser.value.name,
+            profilePhoto:
+                Get.find<ProfileController>().dbUser.value.profilePhoto,
           ),
           updateDate: DateTime.now());
       ReviewService.createReview(businessId, review).then((value) {
@@ -89,19 +94,44 @@ class ReviewController extends GetxController {
       });
       clear();
     } catch (e) {
+      log(e.toString());
       Get.snackbar("Error", "Something went wrong. Please try again later");
     }
   }
 
+  double getRatingByScore(double? score){
+
+    if(score == null) return 0;
+
+    if(score <= -4) return 0.5;
+    if(score == 0) return 2.5;
+    if(score == 0) return 2.5;
+    if(score == 0) return 2.5;
+    if(score == 0) return 2.5;
+    if(score == 0) return 2.5;
+
+
+
+
+    return 2.5;
+  }
+
   Future<void> getSentiment(String msg) async {
-    sentiment.value = await SentimentService.getSentiment(msg);
+    final MySvm mySvm = await SentimentService.getSentiment(msg);
+    sentiment.value = mySvm.sentiment;
+    rating.value = mySvm.score??2.5;
     update();
+  }
+
+  Future<void> deleteReview(String productId, String reviewId) async {
+    await ReviewService.deleteReview(productId, reviewId);
   }
 
   clear() {
     description.text = "";
     rating.value = 0.0;
     enabled.value = false;
+    sentiment.value = 0;
     update();
   }
 }
