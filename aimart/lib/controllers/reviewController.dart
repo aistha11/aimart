@@ -99,27 +99,34 @@ class ReviewController extends GetxController {
     }
   }
 
-  double getRatingByScore(double? score){
+  double getRatingByScore(double? score, int senti) {
+    if (score == null) return 0.0;
 
-    if(score == null) return 0;
+    if (score < -4) return 0.0;
+    if (score >= -4 && score < -3) return 0.5;
+    if (score >= -3 && score < -2) return 1.0;
+    if (score >= -2 && score < -1) return 1.5;
+    if (score >= -1 && score < 0) return 2.0;
+    if (score >= 0 && score < 1) return 2.5;
+    if (score >= 1 && score < 2) return 3.0;
+    if (score >= 2 && score < 3) return 3.5;
+    if (score >= 3 && score < 4) return 4.0;
+    if (score >= 4 && score < 5) return 4.5;
+    if (score >= 5) return 5.0;
 
-    if(score <= -4) return 0.5;
-    if(score == 0) return 2.5;
-    if(score == 0) return 2.5;
-    if(score == 0) return 2.5;
-    if(score == 0) return 2.5;
-    if(score == 0) return 2.5;
-
-
-
-
-    return 2.5;
+    if(senti == 0){
+      return 2.5;
+    }else if(senti > 0){
+      return 4.0;
+    }else{
+      return 1.5;
+    }
   }
 
   Future<void> getSentiment(String msg) async {
     final MySvm mySvm = await SentimentService.getSentiment(msg);
     sentiment.value = mySvm.sentiment;
-    rating.value = mySvm.score??2.5;
+    rating.value = getRatingByScore(mySvm.score, sentiment.value);
     update();
   }
 
