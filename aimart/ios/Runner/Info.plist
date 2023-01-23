@@ -60,5 +60,7 @@
 	<string>To take image from camera</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>To capture audio</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 </dict>
 </plist>
